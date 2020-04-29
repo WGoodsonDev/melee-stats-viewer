@@ -1,0 +1,8 @@
+.SideBarToggle {
+    position: absolute;
+    width: 20px;
+    height: 40px;
+    background-color: olive;
+    left: 210px;
+    z-index: inherit;
+}

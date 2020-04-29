@@ -1,14 +1,22 @@
 import React from 'react';
 
+import Layout from "./containers/Layout/Layout";
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
-  );
+const App = (props) => {
+
+    return (
+        <div className="App">
+            <Layout>
+                <p>
+                    TEST
+                </p>
+
+            </Layout>
+        </div>
+    );
+
 }
 
 export default App;
