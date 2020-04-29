@@ -14,12 +14,7 @@ export default class VizContainer extends React.Component {
     }
 
     componentDidMount() {
-        /* tick timer setup
-        this.timerID = setInterval(
-            () => this.tick(),
-            1000
-        );
-        */
+        // Load data here
     }
 
     componentWillUnmount() {
