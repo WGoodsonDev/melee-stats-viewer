@@ -9,7 +9,8 @@
     background-color: aqua;
     overflow-x: hidden;
     z-index: 1;
-    transition: width 0.5s;
+    transition: width 0.4s;
+    transition-timing-function: ease-out;
 }
 
 .SidebarHidden {
@@ -22,7 +23,8 @@
     background-color: aqua;
     overflow-x: hidden;
     z-index: 1;
-    transition: width 0.5s;
+    transition: width 0.4s;
+    transition-timing-function: ease-in;
 }
 
 

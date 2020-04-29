@@ -2,12 +2,14 @@
     width: 100%;
     height: auto;
     margin-left: 0;
-    transition: 0.3s;
+    transition: 0.4s;
+    transition-timing-function: ease-in;
 }
 
 .MainViewSideBarOpen {
     width: 100%;
     height: auto;
     margin-left: 200px;
-    transition: 0.3s;
+    transition: 0.4s;
+    transition-timing-function: ease-out;
 }
