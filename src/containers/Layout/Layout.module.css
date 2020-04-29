@@ -1,0 +1,19 @@
+.Layout {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffecc7;
+    display: inline-flex;
+    /*transition: margin-left 0.5s;*/
+}
+
+.MainView {
+    z-index: 0;
+}
+
+.OpenButton {
+    height: 20px;
+    width: 20px;
+}
