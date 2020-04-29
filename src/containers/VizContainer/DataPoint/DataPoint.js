@@ -8,10 +8,10 @@ import styles from './DataPoint.module.css';
 const dataPoint = (props) => {
 
     return (
-        <div className={styles.DataPoint}>
-            <circle r={"2"} stroke={"black"} color={"transparent"}/>
-            {props.children}
-        </div>
+        <g>
+            <circle cx={props.x} cy={props.y} r={"3"} stroke={"black"} fill={"black"}/>
+        </g>
+
     );
 }
 

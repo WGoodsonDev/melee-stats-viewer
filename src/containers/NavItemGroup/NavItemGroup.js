@@ -14,7 +14,7 @@ const navItemGroup = (props) => {
         <div className={styles.NavItemGroup}>
             {navItems.map( (n, idx)=> {
                 return (
-                    <NavItem text={navItems[idx]}/>
+                    <NavItem text={navItems[idx]} key={idx}/>
                 );
             })}
             {props.children}
