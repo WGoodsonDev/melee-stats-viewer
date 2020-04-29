@@ -7,6 +7,9 @@
     background-color: black;
     z-index: 10;
 }
+.CloseButton:hover {
+    cursor: pointer;
+}
 
 .svgDiv {
     position: absolute;

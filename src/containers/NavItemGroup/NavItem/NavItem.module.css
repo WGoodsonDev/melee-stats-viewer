@@ -8,11 +8,11 @@
     border-bottom: 2px solid black;
     border-top: 2px solid black;
     font-size: 25px;
-    color: yellow;
     transition: 0.2s;
+    color: #85a392;
 }
 
 .NavItem a:hover {
-    color: white;
-    background-color: olivedrab;
+    color: #ffecc7;
+    background-color: #85a392;
 }
