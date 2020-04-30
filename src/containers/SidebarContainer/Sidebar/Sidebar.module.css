@@ -9,8 +9,8 @@
     background-color: #85a392;
     overflow-x: hidden;
     z-index: 1;
-    transition: width 0.4s;
-    transition-timing-function: ease-out;
+    transition: width 0.3s;
+    transition-timing-function: cubic-bezier(.11,.87,.7,1.01);
 }
 
 .SidebarHidden {
@@ -23,8 +23,8 @@
     background-color: #85a392;
     overflow-x: hidden;
     z-index: 1;
-    transition: width 0.4s;
-    transition-timing-function: ease-in;
+    transition: width 0.3s;
+    transition-timing-function: cubic-bezier(.11,.87,.7,1.01);
 }
 
 

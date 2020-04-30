@@ -9,8 +9,9 @@ const dataPoint = (props) => {
 
     return (
         <g>
-            <circle cx={props.x} cy={props.y} r={"3"} stroke={"black"} fill={"black"}/>
+            <circle cx={props.x.toString()} cy={props.y.toString()} r={"0.2"} stroke={"black"} fill={"black"}/>
         </g>
+
 
     );
 }

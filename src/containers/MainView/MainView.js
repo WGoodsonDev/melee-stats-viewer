@@ -10,7 +10,7 @@ import styles from './MainView.module.css';
 const mainView = (props) => {
 
     return (
-        <div className={props.sidebarVisible ? styles.MainViewSideBarOpen : styles.MainView}>
+        <div className={styles.MainView}>
             {props.children}
             <VizContainer></VizContainer>
         </div>
