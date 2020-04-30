@@ -1,0 +1,36 @@
+.Sidebar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 300px;
+    background-color: #85a392;
+    overflow-x: hidden;
+    z-index: 1;
+    transition: width 0.3s;
+    transition-timing-function: cubic-bezier(.11,.87,.7,1.01);
+}
+
+.SidebarHidden {
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 0;
+    background-color: #85a392;
+    overflow-x: hidden;
+    z-index: 1;
+    transition: width 0.3s;
+    transition-timing-function: cubic-bezier(.11,.87,.7,1.01);
+}
+
+
+
+@media (max-width: 500px) {
+    .Sidebar {
+        width: 0;
+    }
+}

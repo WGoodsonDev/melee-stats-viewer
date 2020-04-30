@@ -1,0 +1,13 @@
+.NavItemGroup {
+    position: absolute;
+    left: 0;
+    top: 50vh;
+    width: 100%;
+    height: 50%;
+    background-color: #f5b971;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    text-decoration: none;
+    transition: 0.3s;
+}
