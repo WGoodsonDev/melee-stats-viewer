@@ -3,7 +3,7 @@
 */
 import React from 'react';
 
-import VizContainer from "../VizContainer/VizContainer";
+import VizContainer from "../../../Vizualizations/VizContainer/VizContainer";
 
 import styles from './MainView.module.css';
 

@@ -7,12 +7,12 @@ import * as d3 from 'd3';
 import styles from './StageBkgndComponent.module.css';
 
 // import {ReactComponent as StageSVG} from '../../Assets/stages/svg/battlefield.svg';
-import battlefield from '../../Assets/stages/png/battlefield.png';
-import dreamland from '../../Assets/stages/png/dreamland.png';
-import FD from '../../Assets/stages/png/FD.png';
-import fountain from '../../Assets/stages/png/fountain.png';
-import stadium from '../../Assets/stages/png/stadium.png';
-import yoshis from '../../Assets/stages/png/yoshis.png';
+import battlefield from '../../../Assets/stages/png/battlefield.png';
+import dreamland from '../../../Assets/stages/png/dreamland.png';
+import FD from '../../../Assets/stages/png/FD.png';
+import fountain from '../../../Assets/stages/png/fountain.png';
+import stadium from '../../../Assets/stages/png/stadium.png';
+import yoshis from '../../../Assets/stages/png/yoshis.png';
 
 // Props: stageID [number]
 //          0: Yoshi's Story

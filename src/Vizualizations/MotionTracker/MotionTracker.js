@@ -22,12 +22,12 @@
 import React from 'react';
 import * as d3 from "d3";
 
-import DebugAxes from '../DebugAxes/DebugAxes';
-import StageBackground from "../StageBkgndComponent/StageBkgndComponent";
+import DebugAxes from '../Generic/DebugAxes/DebugAxes';
+import StageBackground from "../Generic/StageBkgndComponent/StageBkgndComponent";
 
-import DataPoint from '../../containers/VizContainer/DataPoint/DataPoint';
+import DataPoint from '../Generic/DataPoint/DataPoint';
 
-import styles from './Viz.module.css';
+import styles from './MotionTracker.module.css';
 
 import playerPositions from "../../DataHandling/playerPositions.csv";
 
@@ -39,11 +39,11 @@ import battlefield from "../../Assets/stages/png/battlefield.png";
 import FD from "../../Assets/stages/png/FD.png";
 import dreamland from "../../Assets/stages/png/dreamland.png";
 
-export default class Viz extends React.Component {
+export default class MotionTracker extends React.Component {
 
     state = {
         data: [],
-        circles: [],
+        dataPoints: [],
         currentStage: 3,
     }
 
@@ -54,10 +54,10 @@ export default class Viz extends React.Component {
             console.log("Successfully loaded ", data.length.toString(), " data points");
             console.log("data: ", data)
 
-            let circles = [];
+            let dataPoints = [];
             if(data){
                 data.forEach((d, idx) => {
-                    circles.push(<circle key={idx} r={"1"} cx={this.xScale(d.player1X)} cy={this.yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
+                    dataPoints.push(<circle key={idx} r={"1"} cx={this.xScale(d.player1X)} cy={this.yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
                                          opacity={"0.2"}/>);
                 });
             }
@@ -65,7 +65,7 @@ export default class Viz extends React.Component {
             this.setState((state, props) => ({
                 data: data,
                 currentStage: this.props.stageId,
-                circles: circles,
+                dataPoints: dataPoints,
             }))
         });
     }
@@ -150,16 +150,16 @@ export default class Viz extends React.Component {
 
 
         return (
-            <div className={styles.Viz}>
+            <div className={styles.MotionTracker}>
                 <StageBackground style={{}}
                                  stageId={this.state.currentStage}/>
                 <svg width={this.props.width}
                      height={this.props.height}>
-                    <DebugAxes
-                        width={this.props.width}
-                        height={this.props.height}/>
+                    {/*<DebugAxes*/}
+                    {/*    width={this.props.width}*/}
+                    {/*    height={this.props.height}/>*/}
                     <g>
-                        {this.state.circles}
+                        {this.state.dataPoints}
                     </g>
                 </svg>
 

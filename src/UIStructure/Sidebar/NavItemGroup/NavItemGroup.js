@@ -4,7 +4,7 @@
 import React from 'react';
 
 import styles from './NavItemGroup.module.css';
-import NavItem from './NavItem/NavItem'
+import NavItem from '../NavItem/NavItem'
 
 const navItemGroup = (props) => {
 

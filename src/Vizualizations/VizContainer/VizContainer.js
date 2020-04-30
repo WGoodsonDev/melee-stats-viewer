@@ -10,9 +10,9 @@ import styles from './VizContainer.module.css';
 // import { loadAllData } from '../../DataHandling/LoadAllData';
 
 
-import Viz from "../../Vizualizations/Viz/Viz";
+import MotionTracker from "../MotionTracker/MotionTracker";
 
-import StageComponent from '../../Vizualizations/StageBkgndComponent/StageBkgndComponent';
+import StageComponent from '../Generic/StageBkgndComponent/StageBkgndComponent';
 
 
 
@@ -26,7 +26,7 @@ export default class VizContainer extends React.Component {
 
         return (
             <div className={styles.VizContainer}>
-                <Viz height={this.height} width={this.width} vizId={0} stageId={0}/>
+                <MotionTracker height={this.height} width={this.width} vizId={0} stageId={0}/>
                 <h1>This is a title or something</h1>
                 {this.props.children}
             </div>

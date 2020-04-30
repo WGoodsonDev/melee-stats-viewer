@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Layout from "./containers/Layout/Layout";
+import Layout from "./UIStructure/Layout/Layout";
 
 import './App.css';
 import useWindowDimensions from "./Hooks/useWindowDimensions";

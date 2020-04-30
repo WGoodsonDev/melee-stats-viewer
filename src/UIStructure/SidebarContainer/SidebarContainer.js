@@ -5,8 +5,8 @@ import React from 'react';
 
 import styles from './SidebarContainer.module.css';
 
-import Sidebar from "./Sidebar/Sidebar";
-import SidebarToggle from './SidebarToggle/SidebarToggle';
+import Sidebar from "../Sidebar/Sidebar";
+import SidebarToggle from '../SidebarToggle/SidebarToggle';
 
 
 

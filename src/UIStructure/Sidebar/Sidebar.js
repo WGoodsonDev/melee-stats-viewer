@@ -5,8 +5,8 @@ import React from 'react';
 
 import styles from './Sidebar.module.css';
 
-import NavItemGroup from '../../NavItemGroup/NavItemGroup';
-import CloseButton from '../CloseButton/CloseButton';
+import NavItemGroup from './NavItemGroup/NavItemGroup';
+import CloseButton from './CloseButton/CloseButton';
 import Icon from './Icon/Icon';
 
 

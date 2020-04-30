@@ -4,9 +4,9 @@
 import React from 'react';
 import styles from './Layout.module.css';
 
-import Sidebar from "../SidebarContainer/Sidebar/Sidebar";
-import OpenButton from  '../SidebarContainer/OpenButton/OpenButton';
-import MainView from "../MainView/MainView";
+import Sidebar from "../Sidebar/Sidebar";
+import OpenButton from '../Sidebar/OpenButton/OpenButton';
+import MainView from "./MainView/MainView";
 
 export default class Layout extends React.Component {
 
