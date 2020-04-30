@@ -2,6 +2,7 @@
     Created by Warren Goodson
 */
 import React from 'react';
+import * as d3 from 'd3';
 
 import styles from './StageBkgndComponent.module.css';
 
@@ -24,12 +25,12 @@ import yoshis from '../../Assets/stages/png/yoshis.png';
 //      width
 
 const stageSelect = {
-    0: {yoshis},
-    1: {fountain},
-    2: {stadium},
-    3: {battlefield},
-    4: {FD},
-    5: {dreamland}
+    0: yoshis,
+    1: fountain,
+    2: stadium,
+    3: battlefield,
+    4: FD,
+    5: dreamland
 }
 
 const stageSelectString = {
@@ -41,12 +42,6 @@ const stageSelectString = {
     5: "Dreamland"
 }
 
-// stageDimensions[stageId] = {
-//      xMin: [number]
-//      xMax: [number]
-//      yMin: [number]
-//      yMax: [number]
-//}
 const stageDimensions = {
     0: {
         xMin: -175.7,
@@ -86,10 +81,25 @@ const stageDimensions = {
     }
 }
 
-const getStageDimensionsFromID = (stageId) => {
-    return stageDimensions[stageId];
+const pngDimensions = {
+    0: {
+        x: 3593,
+        y: 2690
+    }
 }
 
+const backgroundTransform = {
+    0: `(0, -125px)`,
+    1: "",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+}
+
+const backgroundScale = (stageId) => {
+
+}
 
 
 const stageBkgndComponent = (props) => {
@@ -100,10 +110,8 @@ const stageBkgndComponent = (props) => {
     console.log("Stage: ", props.stageId, "\nheight%: ", backgroundHeightPct);
 
     return (
-        <div className={styles.StageComponent}>
-            <img style={{
-                "maxHeight": "100%",
-            }}
+        <div className={styles.StageBkgndComponent}>
+            <img
                  src={yoshis} alt={`${stageSelectString[props.stageId]}`}/>
             {props.children}
         </div>
