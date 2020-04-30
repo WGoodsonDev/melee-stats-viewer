@@ -19,14 +19,14 @@ import StageComponent from '../../Vizualizations/StageBkgndComponent/StageBkgndC
 
 export default class VizContainer extends React.Component {
 
-    height = 450;
-    width = 800;
+    height = 630;
+    width = 1120;
 
     render() {
 
         return (
             <div className={styles.VizContainer}>
-                <Viz height={this.height} width={this.width} vizId={0} stageId={3}/>
+                <Viz height={this.height} width={this.width} vizId={0} stageId={0}/>
                 <h1>This is a title or something</h1>
                 {this.props.children}
             </div>

@@ -15,13 +15,13 @@ export default class Layout extends React.Component {
     }
 
     openSidebar = () => {
-        this.setState( (state, props) => ({
+        this.setState((state, props) => ({
             sidebarIsVisible: true
         }));
     }
 
     closeSidebar = () => {
-        this.setState( (state, props) => ({
+        this.setState((state, props) => ({
             sidebarIsVisible: false
         }));
     }
@@ -31,18 +31,11 @@ export default class Layout extends React.Component {
             <div className={styles.Layout}>
 
 
-                <div onClick={this.openSidebar}
-                     className={styles.OpenButton}>
+                <div onClick={this.openSidebar} className={styles.OpenButton}>
                     <OpenButton/>
                 </div>
 
-                <Sidebar
-                    isVisible={this.state.sidebarIsVisible}
-                    closeSidebar={this.closeSidebar}
-                >
-
-                </Sidebar>
-
+                <Sidebar isVisible={this.state.sidebarIsVisible} closeSidebar={this.closeSidebar}/>
 
                 <MainView sidebarVisible={this.state.sidebarIsVisible}>
                     <p>
@@ -54,3 +47,4 @@ export default class Layout extends React.Component {
 
         );
     }
+}

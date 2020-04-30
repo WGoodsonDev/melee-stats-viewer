@@ -32,18 +32,19 @@ import styles from './Viz.module.css';
 import playerPositions from "../../DataHandling/playerPositions.csv";
 
 
-import yoshis from "../../../public/Assets/png/yoshis.png";
-import fountain from "../../../public/Assets/png/fountain.png";
-import stadium from "../../../public/Assets/png/stadium.png";
-import battlefield from "../../../public/Assets/png/battlefield.png";
-import FD from "../../../public/Assets/png/FD.png";
-import dreamland from "../../../public/Assets/png/dreamland.png";
+import yoshis from "../../Assets/stages/png/yoshis.png";
+import fountain from "../../Assets/stages/png/fountain.png";
+import stadium from "../../Assets/stages/png/stadium.png";
+import battlefield from "../../Assets/stages/png/battlefield.png";
+import FD from "../../Assets/stages/png/FD.png";
+import dreamland from "../../Assets/stages/png/dreamland.png";
 
 export default class Viz extends React.Component {
 
     state = {
         data: [],
-        currentStage: 3
+        circles: [],
+        currentStage: 3,
     }
 
 
@@ -52,9 +53,19 @@ export default class Viz extends React.Component {
         d3.csv(playerPositions).then((data) => {
             console.log("Successfully loaded ", data.length.toString(), " data points");
             console.log("data: ", data)
+
+            let circles = [];
+            if(data){
+                data.forEach((d, idx) => {
+                    circles.push(<circle key={idx} r={"1"} cx={this.xScale(d.player1X)} cy={this.yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
+                                         opacity={"0.2"}/>);
+                });
+            }
+
             this.setState((state, props) => ({
                 data: data,
-                currentStage: this.props.stageId
+                currentStage: this.props.stageId,
+                circles: circles,
             }))
         });
     }
@@ -133,27 +144,26 @@ export default class Viz extends React.Component {
     render() {
 
         // console.log(this.state.data);
-        const currentData = this.state.data;
-        let circles = [];
-        if(currentData){
-            currentData.forEach((d, idx) => {
-                circles.push(<circle key={idx} r={"1"} cx={this.xScale(d.player1X)} cy={this.yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
-                opacity={"0.2"}/>);
-            });
-        }
+
+        //PROBLEM!!! Recalculates data every render cycle
+
 
 
         return (
             <div className={styles.Viz}>
-                <StageBackground width={this.props.width} height={this.props.height} stageId={this.state.currentStage || 3}/>
-                <svg width={this.props.width} height={this.props.height}>
-                    <DebugAxes width={this.props.width} height={this.props.height}/>
+                <StageBackground style={{}}
+                                 stageId={this.state.currentStage}/>
+                <svg width={this.props.width}
+                     height={this.props.height}>
+                    <DebugAxes
+                        width={this.props.width}
+                        height={this.props.height}/>
                     <g>
-                        {circles}
+                        {this.state.circles}
                     </g>
                 </svg>
 
-                {<h5>{currentData[2]?.player2X}</h5>}
+                {/*{<h5>{currentData[2]?.player2X}</h5>}*/}
 
                 {this.props.children}
             </div>

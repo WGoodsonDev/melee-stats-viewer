@@ -6,12 +6,12 @@ import React from 'react';
 import styles from './StageBkgndComponent.module.css';
 
 // import {ReactComponent as StageSVG} from '../../Assets/stages/svg/battlefield.svg';
-import battlefield from '../../../public/Assets/png/battlefield.png';
-import dreamland from '../../../public/Assets/png/dreamland.png';
-import FD from '../../../public/Assets/png/FD.png';
-import fountain from '../../../public/Assets/png/fountain.png';
-import stadium from '../../../public/Assets/png/stadium.png';
-import yoshis from '../../../public/Assets/png/yoshis.png';
+import battlefield from '../../Assets/stages/png/battlefield.png';
+import dreamland from '../../Assets/stages/png/dreamland.png';
+import FD from '../../Assets/stages/png/FD.png';
+import fountain from '../../Assets/stages/png/fountain.png';
+import stadium from '../../Assets/stages/png/stadium.png';
+import yoshis from '../../Assets/stages/png/yoshis.png';
 
 // Props: stageID [number]
 //          0: Yoshi's Story
@@ -102,9 +102,9 @@ const stageBkgndComponent = (props) => {
     return (
         <div className={styles.StageComponent}>
             <img style={{
-                "maxHeight": (backgroundHeightPct + "%")
+                "maxHeight": "100%",
             }}
-                 src={battlefield} alt={`${stageSelectString[props.stageId]}`}/>
+                 src={yoshis} alt={`${stageSelectString[props.stageId]}`}/>
             {props.children}
         </div>
     );
