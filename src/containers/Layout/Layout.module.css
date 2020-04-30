@@ -6,6 +6,8 @@
     height: 100vh;
     background-color: #ffecc7;
     display: inline-flex;
+    overflow-y: auto;
+
     /*transition: margin-left 0.5s;*/
 }
 

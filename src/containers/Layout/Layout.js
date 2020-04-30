@@ -18,14 +18,12 @@ export default class Layout extends React.Component {
         this.setState( (state, props) => ({
             sidebarIsVisible: true
         }));
-        console.log("Sidebar opening...");
     }
 
     closeSidebar = () => {
         this.setState( (state, props) => ({
             sidebarIsVisible: false
         }));
-        console.log("Sidebar opening...");
     }
 
     render() {
@@ -56,5 +54,3 @@ export default class Layout extends React.Component {
 
         );
     }
-
-}
