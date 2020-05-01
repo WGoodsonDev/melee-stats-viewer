@@ -106,9 +106,6 @@ const stageBkgndComponent = (props) => {
     const { xMin, xMax, yMin, yMax } = stageDimensions[props.stageId];
     const backgroundHeightPct = ((yMax - yMin) / props.height) * 100;
 
-
-    console.log("Stage: ", props.stageId, "\nheight%: ", backgroundHeightPct);
-
     return (
         <div className={styles.StageBkgndComponent}>
             <img

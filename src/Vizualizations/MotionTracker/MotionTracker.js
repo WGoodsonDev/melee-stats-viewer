@@ -39,38 +39,11 @@ import battlefield from "../../Assets/stages/png/battlefield.png";
 import FD from "../../Assets/stages/png/FD.png";
 import dreamland from "../../Assets/stages/png/dreamland.png";
 
-export default class MotionTracker extends React.Component {
-
-    state = {
-        data: [],
-        dataPoints: [],
-        currentStage: 3,
-    }
 
 
-    componentDidMount() {
-        // Load data here
-        d3.csv(playerPositions).then((data) => {
-            console.log("Successfully loaded ", data.length.toString(), " data points");
-            console.log("data: ", data)
+const motionTracker = (props) => {
 
-            let dataPoints = [];
-            if(data){
-                data.forEach((d, idx) => {
-                    dataPoints.push(<circle key={idx} r={"1"} cx={this.xScale(d.player1X)} cy={this.yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
-                                         opacity={"0.2"}/>);
-                });
-            }
-
-            this.setState((state, props) => ({
-                data: data,
-                currentStage: this.props.stageId,
-                dataPoints: dataPoints,
-            }))
-        });
-    }
-
-    stageSelect = {
+    const stageSelect = {
         0: {yoshis},
         1: {fountain},
         2: {stadium},
@@ -79,7 +52,7 @@ export default class MotionTracker extends React.Component {
         5: {dreamland}
     }
 
-    stageSelectString = {
+    const stageSelectString = {
         0: "Yoshi's Story",
         1: "Fountain of Dreams",
         2: "Pokemon Stadium",
@@ -94,7 +67,7 @@ export default class MotionTracker extends React.Component {
 //      yMin: [number]
 //      yMax: [number]
 //}
-    stageDimensions = {
+    const stageDimensions = {
         0: {
             xMin: -175.7,
             xMax: 173.6,
@@ -133,40 +106,41 @@ export default class MotionTracker extends React.Component {
         }
     }
 
-    xScale = d3.scaleLinear()
-        .domain([-224, 224])
-        .range([0, this.props.width])
-    yScale = d3.scaleLinear()       // domain: [minimum of the minimum between player y-positions, max of the max of the same
-        .domain([ -109, 200])
-        .range([this.props.height, 0]);
-
-
-    render() {
-
-        // console.log(this.state.data);
-
-        //PROBLEM!!! Recalculates data every render cycle
-
-
-
-        return (
-            <div className={styles.MotionTracker}>
-                <StageBackground style={{}}
-                                 stageId={this.state.currentStage}/>
-                <svg width={this.props.width}
-                     height={this.props.height}>
-                    {/*<DebugAxes*/}
-                    {/*    width={this.props.width}*/}
-                    {/*    height={this.props.height}/>*/}
-                    <g>
-                        {this.state.dataPoints}
-                    </g>
-                </svg>
-
-                {/*{<h5>{currentData[2]?.player2X}</h5>}*/}
-
-                {this.props.children}
-            </div>
-        );
+    const makeDataPoint = (d, idx) => {
+        return (<circle key={idx} r={"1"} cx={xScale(d.player1X)} cy={yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
+                        opacity={"0.2"}/>);
     }
+
+    const xScale = d3.scaleLinear()
+        .domain([-224, 224])
+        .range([0, props.width])
+    const yScale = d3.scaleLinear()       // domain: [minimum of the minimum between player y-positions, max of the max of the same
+        .domain([ -109, 200])
+        .range([props.height, 0]);
+
+    const dataPoints = props.data.map((d, idx) => {
+        return makeDataPoint(d, idx);
+    })
+
+    return (
+
+        <div className={styles.MotionTracker}>
+            <StageBackground stageId={props.stageId}/>
+            <svg width={props.width}
+                 height={props.height}>
+                {/*<DebugAxes*/}
+                {/*    width={this.props.width}*/}
+                {/*    height={this.props.height}/>*/}
+                <g className={"points"}>
+                    {dataPoints}
+                </g>
+            </svg>
+
+            {/*{<h5>{currentData[2]?.player2X}</h5>}*/}
+
+            {props.children}
+        </div>
+    );
 }
+
+export default motionTracker;
