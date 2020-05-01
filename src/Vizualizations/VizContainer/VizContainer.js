@@ -38,6 +38,7 @@ export default class VizContainer extends React.Component {
 
     componentDidMount() {
         // Load data here
+        // TODO: load stage information with position data
         d3.csv(playerPositions).then((data) => {
             console.log("Successfully loaded ", data.length.toString(), " data points");
             console.log("data: ", data)

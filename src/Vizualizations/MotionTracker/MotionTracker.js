@@ -106,33 +106,65 @@ const motionTracker = (props) => {
         }
     }
 
+    const svgProportions = {
+        0: {
+            xDim: 857.04,
+            yDim: 636
+        },
+        1: {
+            xDim: 731.35,
+            yDim: 642
+        },
+        2: {
+            xDim: 1013.67,
+            yDim: 642
+        },
+        3: {
+            xDim: 930.48,
+            yDim: 642
+        },
+        4: {
+            xDim: 966.94,
+            yDim: 642
+        },
+        5: {
+            xDim: 877.06,
+            yDim: 642
+        }
+    }
+
     const xScale = d3.scaleLinear()
         .domain([[stageDimensions[props.stageId].xMin], [stageDimensions[props.stageId].xMax]])
-        .range([0, props.width]) // instead of props.width, use width of background image
+        .range([0, svgProportions[props.stageId].xDim]) // instead of props.width, use width of background image
     const yScale = d3.scaleLinear()
         .domain([[stageDimensions[props.stageId].yMin], [stageDimensions[props.stageId].yMax]])
-        .range([props.height, 0]); // height is the same, based on styling
+        .range([[svgProportions[props.stageId].yDim], 0]); // height is the same, based on styling
+
+    const line = d3.line()
+        .x(d => xScale(d.player1X))
+        .y(d => yScale(d.player1Y));
 
     const makeDataPoint = (d, idx) => {
         return (<circle key={idx} r={"1"} cx={xScale(d.player1X)} cy={yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
                         opacity={"0.2"}/>);
     }
 
-    const dataPoints = props.data.map((d, idx) => {
-        return makeDataPoint(d, idx);
-    })
+    // const dataPoints = props.data.map((d, idx) => {
+    //     return makeDataPoint(d, idx);
+    // })
 
     return (
 
         <div className={styles.MotionTracker}>
             <StageBackground stageId={props.stageId}/>
-            <svg width={props.width}
-                 height={props.height}>
-                {/*<DebugAxes*/}
-                {/*    width={this.props.width}*/}
-                {/*    height={this.props.height}/>*/}
+            <svg width={857.04}
+                  height={636}>
+                <DebugAxes
+                    width={props.width}
+                    height={props.height}/>
                 <g className={"points"}>
-                    {dataPoints}
+                    {/*{dataPoints}*/}
+                    {<path d={line(props.data)} strokeWidth={1.8} stroke={"green"} fill={"none"} />}
                 </g>
             </svg>
 
