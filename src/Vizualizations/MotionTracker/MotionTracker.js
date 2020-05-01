@@ -32,12 +32,12 @@ import styles from './MotionTracker.module.css';
 import playerPositions from "../../DataHandling/playerPositions.csv";
 
 
-import yoshis from "../../Assets/stages/png/yoshis.png";
-import fountain from "../../Assets/stages/png/fountain.png";
-import stadium from "../../Assets/stages/png/stadium.png";
-import battlefield from "../../Assets/stages/png/battlefield.png";
-import FD from "../../Assets/stages/png/FD.png";
-import dreamland from "../../Assets/stages/png/dreamland.png";
+import yoshis from "../../Assets/stages/png/yoshis_downscaled_648.png";
+import fountain from "../../Assets/stages/png/fountain_downscaled_648.png";
+import stadium from "../../Assets/stages/png/stadium_downscaled_648.png";
+import battlefield from "../../Assets/stages/png/battlefield_downscaled_648.png";
+import FD from "../../Assets/stages/png/FD_downscaled_648.png";
+import dreamland from "../../Assets/stages/png/dreamland_downscaled_648.png";
 
 
 
@@ -156,9 +156,9 @@ const motionTracker = (props) => {
     return (
 
         <div className={styles.MotionTracker}>
-            <StageBackground stageId={props.stageId}/>
-            <svg width={857.04}
-                  height={636}>
+
+            <svg width={svgProportions[props.stageId].xDim}
+                  height={svgProportions[props.stageId].yDim}>
                 <DebugAxes
                     width={props.width}
                     height={props.height}/>
@@ -167,6 +167,7 @@ const motionTracker = (props) => {
                     {<path d={line(props.data)} strokeWidth={1.8} stroke={"green"} fill={"none"} />}
                 </g>
             </svg>
+            <StageBackground stageId={props.stageId}/>
 
             {/*{<h5>{currentData[2]?.player2X}</h5>}*/}
 

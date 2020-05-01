@@ -9,8 +9,8 @@ const ComboFilter = require('../ComboFilter');
 
 const game = new SlippiGame('test.slp');
 const meta = game.getSettings();
-// console.log(util.inspect(meta, false, null, true));
-console.log(meta.stageId);
+console.log(util.inspect(meta, false, null, true));
+
 
 // const frames = game.getFrames();
 //

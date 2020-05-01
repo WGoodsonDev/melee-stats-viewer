@@ -25,3 +25,7 @@ yarn-error.log*
 
 *.txt
 *.slp
+*.csv
+
+
+/src/DataHandling/scripts/game_files/

@@ -8,11 +8,9 @@ const ComboFilter = require('../ComboFilter');
 
 
 
-function generateCsv() {
-    const game = new SlippiGame('test.slp');
+function generateCsv(filename, outputFilename) {
 
-    const frames = game.getFrames();
-    const settings = game.getSettings();
+    let {stageId, frames, combos} = loadData(filename);
 
     // console.log(util.inspect(frames[3781], false, null, true));
 
@@ -33,44 +31,62 @@ function generateCsv() {
             const player2Y = el.players[1]?.pre?.positionY;
             const frameNum = el.frame;
             if(frameNum > 0){
-                cleaned.push({player1X, player1Y, player2X, player2Y, frameNum});
+                cleaned.push({player1X, player1Y, player2X, player2Y, frameNum, stageId});
             }
         }
     });
 
-    return cleaned;
-
-
-
-    // const stats = game.getStats();
-    // const options = {
-    //     didKill: true,
-    //     minLength: 5,
-    //     includedAttacks: [],
-    // }
-    // return ComboFilter.filterCombos(stats, options);
+    motionTrackerCsv(cleaned, outputFilename);
 }
 
-const data = generateCsv();
+function loadData(filename){
+    const game = new SlippiGame(`${filename}`);
 
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-const csvWriter = createCsvWriter({
-    path: 'playerPositions.csv',
-    header: [
-        {id: 'player1X', title: 'player1X'},
-        {id: 'player1Y', title: 'player1Y'},
-        {id: 'player2X', title: 'player2X'},
-        {id: 'player2Y', title: 'player2Y'},
-        {id: 'frameNum', title: 'frameNum'},
-    ]
-});
+    const frames = game.getFrames();
+    const stageId = game.getSettings().stageId;
+
+    const stats = game.getStats();
+
+    const combos = ComboFilter.filterCombos(stats, {
+        didKill: true,
+        minLength: 3,
+        includedAttacks: null,
+    });
+
+    return {stageId, frames, combos};
+
+}
+
+function motionTrackerCsv(data, outputFilename){
+    //
+    const outputFilenameNoExtension = outputFilename.split('.').slice(0, -1).join('.');
+    const csvWriter = require('csv-writer').createObjectCsvWriter({
+        path: `./${outputFilenameNoExtension}.csv`,
+        header: [
+            {id: 'player1X', title: 'player1X'},
+            {id: 'player1Y', title: 'player1Y'},
+            {id: 'player2X', title: 'player2X'},
+            {id: 'player2Y', title: 'player2Y'},
+            {id: 'frameNum', title: 'frameNum'},
+            {id: 'stageId', title: 'stageId'},
+        ]
+    });
+
+    try{
+        csvWriter
+        .writeRecords(data)
+        .then(() => console.log('The CSV file was written successfully'));
+    } catch (err) {
+        console.log(err);
+    }
+
+    
+}
+
 //
-csvWriter
-    .writeRecords(data)
-    .then(() => console.log('The CSV file was written successfully'));
-
-
-
-module.exports = {
-    testScript: generateCsv
+const args = process.argv.slice(2);
+if(args.length === 2){
+    generateCsv(args[0], args[1]);
+} else {
+    console.log("Expected 2 arguments: filename outputFilename")
 }

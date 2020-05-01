@@ -28,7 +28,7 @@ function filterCombos(stats, options) {
     if(options.minLength > 0){
         comboArray = filterCombosMinLength(comboArray, options.minLength);
     }
-    if(options.includedAttacks.length){
+    if(options.includedAttacks?.length){
         comboArray = filterCombosIncludedAttacks(comboArray, options.includedAttacks);
     }
 
