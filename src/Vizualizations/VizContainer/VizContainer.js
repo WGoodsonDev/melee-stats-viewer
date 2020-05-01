@@ -42,8 +42,6 @@ export default class VizContainer extends React.Component {
             console.log("Successfully loaded ", data.length.toString(), " data points");
             console.log("data: ", data)
 
-            this.motionTracker = (<MotionTracker height={this.height} width={this.width} stageId={0} data={this.state.motionTrackerData}/>);
-
             this.setState((state, props) => ({
                 motionTrackerData: data,
             }))
@@ -51,7 +49,6 @@ export default class VizContainer extends React.Component {
     }
 
     render() {
-        console.log(this.vizPicker(this.state.currentViz))
         return (
             <div className={styles.VizContainer}>
                 {this.state.motionTrackerData && this.vizPicker(this.state.currentViz)}

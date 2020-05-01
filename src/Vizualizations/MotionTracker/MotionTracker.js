@@ -106,17 +106,17 @@ const motionTracker = (props) => {
         }
     }
 
+    const xScale = d3.scaleLinear()
+        .domain([[stageDimensions[props.stageId].xMin], [stageDimensions[props.stageId].xMax]])
+        .range([0, props.width]) // instead of props.width, use width of background image
+    const yScale = d3.scaleLinear()
+        .domain([[stageDimensions[props.stageId].yMin], [stageDimensions[props.stageId].yMax]])
+        .range([props.height, 0]); // height is the same, based on styling
+
     const makeDataPoint = (d, idx) => {
         return (<circle key={idx} r={"1"} cx={xScale(d.player1X)} cy={yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
                         opacity={"0.2"}/>);
     }
-
-    const xScale = d3.scaleLinear()
-        .domain([-224, 224])
-        .range([0, props.width])
-    const yScale = d3.scaleLinear()       // domain: [minimum of the minimum between player y-positions, max of the max of the same
-        .domain([ -109, 200])
-        .range([props.height, 0]);
 
     const dataPoints = props.data.map((d, idx) => {
         return makeDataPoint(d, idx);
