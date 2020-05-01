@@ -9,7 +9,7 @@ import styles from './VizContainer.module.css';
 import MotionTracker from "../MotionTracker/MotionTracker";
 import Heatmap from "../Heatmap/Heatmap";
 import * as d3 from "d3";
-import csv from "../../DataHandling/scripts/game_files/csv/Game_20181228T002204.csv";
+import csv from "../../DataHandling/scripts/game_files/csv/Game_20190204T170601.csv";
 
 
 export default class VizContainer extends React.Component {

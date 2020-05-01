@@ -140,9 +140,13 @@ const motionTracker = (props) => {
         .domain([[stageDimensions[props.stageId].yMin], [stageDimensions[props.stageId].yMax]])
         .range([[svgProportions[props.stageId].yDim], 0]); // height is the same, based on styling
 
-    const line = d3.line()
+    const p1Line = d3.line()
         .x(d => xScale(d.player1X))
         .y(d => yScale(d.player1Y));
+
+    const p2Line = d3.line()
+        .x(d => xScale(d.player2X))
+        .y(d => yScale(d.player2Y));
 
     const makeDataPoint = (d, idx) => {
         return (<circle key={idx} r={"1"} cx={xScale(d.player1X)} cy={yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
@@ -156,18 +160,19 @@ const motionTracker = (props) => {
     return (
 
         <div className={styles.MotionTracker}>
-
+            <StageBackground stageId={props.stageId}/>
             <svg width={svgProportions[props.stageId].xDim}
                   height={svgProportions[props.stageId].yDim}>
-                <DebugAxes
-                    width={props.width}
-                    height={props.height}/>
+                {/*<DebugAxes*/}
+                {/*    width={props.width}*/}
+                {/*    height={props.height}/>*/}
                 <g className={"points"}>
                     {/*{dataPoints}*/}
-                    {<path d={line(props.data)} strokeWidth={1.8} stroke={"green"} fill={"none"} />}
+                    {<path d={p1Line(props.data)} strokeWidth={1.2} stroke={"green"} fill={"none"} />}
+                    {<path d={p2Line(props.data)} strokeWidth={1.2} stroke={"blue"} fill={"none"} />}
                 </g>
             </svg>
-            <StageBackground stageId={props.stageId}/>
+
 
             {/*{<h5>{currentData[2]?.player2X}</h5>}*/}
 
