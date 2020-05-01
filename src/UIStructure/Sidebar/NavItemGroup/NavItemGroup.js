@@ -8,15 +8,17 @@ import NavItem from '../NavItem/NavItem'
 
 const navItemGroup = (props) => {
 
-    const navItems = ["LinkedIn", "GitHub", "Other", "Other other"];
+    const navItems = ["LinkedIn", "GitHub", "Home", "Other"];
+    const urls = ["https://www.linkedin.com/in/warren-goodson-ba84b2184/", "https://github.com/whgoodson"];
 
     return (
         <div className={styles.NavItemGroup}>
             {navItems.map( (n, idx)=> {
                 return (
-                    <NavItem text={navItems[idx]} key={idx}/>
+                    <NavItem text={navItems[idx]} url={urls[idx]} openInNewTab={true} key={idx}/>
                 );
             })}
+
             {props.children}
         </div>
     );

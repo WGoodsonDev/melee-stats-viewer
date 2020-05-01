@@ -1,0 +1,20 @@
+.LandingPage {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #85a392;
+    text-align: center;
+}
+
+.MainText {
+    position: fixed;
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.Subtitle {
+
+}

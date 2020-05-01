@@ -1,5 +1,5 @@
 .Layout {
-    position: fixed;
+    position: relative;
     left: 0;
     top: 0;
     width: 100vw;
@@ -11,7 +11,7 @@
     /*transition: margin-left 0.5s;*/
 }
 
-.MainView {
+.Layout .MainView {
     z-index: -1;
 }
 

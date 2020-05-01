@@ -1,6 +1,8 @@
 import React from 'react';
+import {BrowserRouter, Route} from 'react-router-dom';
 
 import Layout from "./UIStructure/Layout/Layout";
+import LandingPage from "./UIStructure/LandingPage/LandingPage";
 
 import './App.css';
 import useWindowDimensions from "./Hooks/useWindowDimensions";
@@ -10,14 +12,14 @@ const App = (props) => {
     const { height, width } = useWindowDimensions();
 
     return (
-        <div className={"App"}>
-            <Layout>
-                <p>
-                    TEST
-                </p>
+        <BrowserRouter>
+            <div className={"App"}>
+                <Route path={"/"} exact component={LandingPage}/>
+                <Route path={"/visualizations"} exact component={Layout}/>
 
-            </Layout>
-        </div>
+            </div>
+        </BrowserRouter>
+
     );
 
 }
