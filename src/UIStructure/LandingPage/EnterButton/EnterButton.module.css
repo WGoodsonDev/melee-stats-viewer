@@ -1,0 +1,21 @@
+.wrapper {
+    border: 1px solid black;
+    padding: 100px;
+    text-align: center;
+}
+
+.EnterButton{
+    display: inline-block;
+    height: 40px;
+    width: 120px;
+    padding: 20px;
+    background-color: #f5b971;
+    text-decoration: none;
+    border: 1px solid black;
+    transition: background-color .15s;
+}
+
+.EnterButton:hover{
+    background-color: #ffecc7;
+    cursor: pointer;
+}

@@ -3,6 +3,8 @@
 */
 import React from 'react';
 
+import EnterButton from './EnterButton/EnterButton';
+
 import styles from './LandingPage.module.css';
 
 const landingPage = (props) => {
@@ -17,6 +19,8 @@ const landingPage = (props) => {
             <div className={styles.Subtitle}>
                 <h4>Built using React, D3, and slippi-parser-js</h4>
             </div>
+
+            <EnterButton/>
 
             {props.children}
         </div>

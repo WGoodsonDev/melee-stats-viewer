@@ -1,5 +1,8 @@
 .LandingPage {
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     width: 100vw;
     height: 100vh;
     background-color: #85a392;
@@ -7,14 +10,12 @@
 }
 
 .MainText {
-    position: fixed;
-    display: inline-block;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
+    border: 1px solid black;
+    padding: 50px;
 }
 
 .Subtitle {
+    border: 1px solid black;
+    padding: 50px;
 
 }
