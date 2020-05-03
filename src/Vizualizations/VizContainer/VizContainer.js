@@ -11,7 +11,7 @@ import Heatmap from "../Heatmap/Heatmap";
 import * as d3 from "d3";
 
 // DATA SOURCES
-import csv from "../../DataHandling/scripts/game_files/csv/Game_20190301T011330.csv";
+import csv from "../../DataHandling/scripts/game_files/csv/Game_20190107T000138.csv";
 import stats from '../../DataHandling/scripts/stats.json';
 
 
@@ -46,11 +46,15 @@ export default class VizContainer extends React.Component {
         if(this.state.motionTrackerData.length){
 
             stage = this.state.motionTrackerData[54].stageId;
-            console.log(stage);
-            console.log(this.mapStageId[stage]);
+            // console.log(stage);
+            // console.log(this.mapStageId[stage]);
             switch(id){
                 case 0:
-                    return (<MotionTracker height={this.height} width={this.width} stageId={this.mapStageId[stage]} data={this.state.motionTrackerData} stats={this.state.statsData}/>);
+                    return (<MotionTracker height={this.height}
+                                           width={this.width}
+                                           stageId={this.mapStageId[stage]}
+                                           data={this.state.motionTrackerData}
+                                           stats={this.state.statsData}/>);
                 case 1:
                     return(<Heatmap height={this.height} width={this.width} stageId={0}/>);
                 default:
@@ -84,7 +88,6 @@ export default class VizContainer extends React.Component {
     }
 
     render() {
-
 
         return (
             <div className={styles.VizContainer}>

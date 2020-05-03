@@ -148,6 +148,14 @@ const motionTracker = (props) => {
         .x(d => xScale(d.player2X))
         .y(d => yScale(d.player2Y));
 
+    const p1ColorScale = d3.scaleLinear()
+        .domain([0, 4])
+        .range(["blue", "steelblue"])
+
+    const p2ColorScale = d3.scaleLinear()
+        .domain([0, 4])
+        .range(["red", "orange"])
+
     const makeDataPoint = (d, idx) => {
         return (<circle key={idx} r={"1"} cx={xScale(d.player1X)} cy={yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
                         opacity={"0.2"}/>);
@@ -171,11 +179,11 @@ const motionTracker = (props) => {
         let p2StockPaths = [];
 
          stockArray.forEach( (stock, idx) => {
-             const gameSlice = props.data.slice(stock.startFrame, stock.endFrame);
+            const gameSlice = props.data.slice(stock.startFrame, stock.endFrame + 1);
             if(stock.playerIndex === p1Index){
-                p1StockPaths.push(<MotionTrackerStock key={idx} d={p1Line(gameSlice)} color={"green"}/>);
+                p1StockPaths.push(<MotionTrackerStock key={idx} d={p1Line(gameSlice)} color={p1ColorScale(idx)}/>);
             } else {
-                p2StockPaths.push(<path key={idx} d={p2Line(gameSlice)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"blue"} fill={"none"}/>);
+                p2StockPaths.push(<MotionTrackerStock key={idx} d={p2Line(gameSlice)} color={p2ColorScale(idx)}/>);
             }
         });
         console.log(p1StockPaths);
@@ -190,19 +198,24 @@ const motionTracker = (props) => {
     return (
         <div className={styles.MotionTracker}>
 
-            <svg width={svgProportions[props.stageId].xDim}
-                  height={svgProportions[props.stageId].yDim}>
-                {/*<DebugAxes*/}
-                {/*    width={props.width}*/}
-                {/*    height={props.height}/>*/}
 
-                {/*{dataPoints}*/}
-                {/*{<path d={p1Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"green"} fill={"none"}/>}*/}
-                {/*{<path d={p2Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"blue"} fill={"none"}/>}*/}
-                {p1StockPaths[3]}
+            <div className={styles.svgContainer}>
+                <svg width={svgProportions[props.stageId].xDim}
+                     height={svgProportions[props.stageId].yDim}>
+                    {/*<DebugAxes*/}
+                    {/*    width={props.width}*/}
+                    {/*    height={props.height}/>*/}
+
+                    {/*{dataPoints}*/}
+                    {/*{<path d={p1Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"green"} fill={"none"}/>}*/}
+                    {/*{<path d={p2Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"blue"} fill={"none"}/>}*/}
+                    {p1StockPaths}
+                    {p2StockPaths}
 
 
-            </svg>
+                </svg>
+            </div>
+
             <StageBackground stageId={props.stageId}/>
 
 

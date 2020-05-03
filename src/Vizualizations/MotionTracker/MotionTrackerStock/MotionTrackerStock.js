@@ -7,17 +7,15 @@ import React from 'react';
 export default class MotionTrackerStock extends React.Component{
 
     state = {
-        strokeWidth: "1.2"
+        strokeWidth: "3"
     };
 
     highlight = () => {
-        this.setState({strokeWidth: "4"});
-        console.log("mouse over");
+        this.setState({strokeWidth: "5"});
     }
 
     unhighlight = () => {
-        this.setState({strokeWidth: "1.2"});
-        console.log("mouse left");
+        this.setState({strokeWidth: "3"});
     }
 
     render() {
@@ -25,12 +23,13 @@ export default class MotionTrackerStock extends React.Component{
             <path onMouseOver={this.highlight}
                   onMouseOut={this.unhighlight}
                   d={this.props.d}
-                  strokeDasharray="2,2"
+                  strokeLinecap={"round"}
+                  strokeLinejoin={"round"}
                   strokeWidth={this.state.strokeWidth}
                   stroke={this.props.color}
                   fill={"none"}/>
         );
     }
 
-
+    // strokeDasharray="4,4"
 }
