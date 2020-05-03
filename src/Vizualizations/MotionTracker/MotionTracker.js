@@ -41,9 +41,13 @@ import dreamland from "../../Assets/stages/png/dreamland_downscaled_648.png";
 
 
 
-const motionTracker = (props) => {
+export default class motionTracker extends React.Component{
 
-    const stageSelect = {
+    state = {
+
+    }
+
+    stageSelect = {
         0: {yoshis},
         1: {fountain},
         2: {stadium},
@@ -52,7 +56,7 @@ const motionTracker = (props) => {
         5: {dreamland}
     }
 
-    const stageSelectString = {
+    stageSelectString = {
         0: "Yoshi's Story",
         1: "Fountain of Dreams",
         2: "Pokemon Stadium",
@@ -67,7 +71,7 @@ const motionTracker = (props) => {
 //      yMin: [number]
 //      yMax: [number]
 //}
-    const stageDimensions = {
+    stageDimensions = {
         0: {
             xMin: -175.7,
             xMax: 173.6,
@@ -106,7 +110,7 @@ const motionTracker = (props) => {
         }
     }
 
-    const svgProportions = {
+    svgProportions = {
         0: {
             xDim: 857.04,
             yDim: 636
@@ -133,45 +137,45 @@ const motionTracker = (props) => {
         }
     }
 
-    const xScale = d3.scaleLinear()
-        .domain([[stageDimensions[props.stageId].xMin], [stageDimensions[props.stageId].xMax]])
-        .range([0, svgProportions[props.stageId].xDim]) // instead of props.width, use width of background image
-    const yScale = d3.scaleLinear()
-        .domain([[stageDimensions[props.stageId].yMin], [stageDimensions[props.stageId].yMax]])
-        .range([[svgProportions[props.stageId].yDim], 0]); // height is the same, based on styling
+    xScale = d3.scaleLinear()
+        .domain([[this.stageDimensions[this.props.stageId].xMin], [this.stageDimensions[this.props.stageId].xMax]])
+        .range([0, this.svgProportions[this.props.stageId].xDim]) // instead of props.width, use width of background image
+    yScale = d3.scaleLinear()
+        .domain([[this.stageDimensions[this.props.stageId].yMin], [this.stageDimensions[this.props.stageId].yMax]])
+        .range([[this.svgProportions[this.props.stageId].yDim], 0]); // height is the same, based on styling
 
-    const p1Line = d3.line()
-        .x(d => xScale(d.player1X))
-        .y(d => yScale(d.player1Y));
+    p1Line = d3.line()
+        .x(d => this.xScale(d.player1X))
+        .y(d => this.yScale(d.player1Y));
 
-    const p2Line = d3.line()
-        .x(d => xScale(d.player2X))
-        .y(d => yScale(d.player2Y));
+    p2Line = d3.line()
+        .x(d => this.xScale(d.player2X))
+        .y(d => this.yScale(d.player2Y));
 
-    const p1ColorScale = d3.scaleLinear()
+    p1ColorScale = d3.scaleLinear()
         .domain([0, 4])
         .range(["blue", "steelblue"])
 
-    const p2ColorScale = d3.scaleLinear()
+    p2ColorScale = d3.scaleLinear()
         .domain([0, 4])
         .range(["red", "orange"])
 
-    const p1ComboColorScale = d3.scaleLinear()
+    p1ComboColorScale = d3.scaleLinear()
         .domain([0, 10])
         .range(["purple", "steelblue"])
 
-    const p2ComboColorScale = d3.scaleLinear()
+    p2ComboColorScale = d3.scaleLinear()
         .domain([0, 10])
         .range(["green", "red"])
 
 
-    const makeDataPoint = (d, idx) => {
-        return (<circle key={idx} r={"1"} cx={xScale(d.player1X)} cy={yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
+    makeDataPoint = (d, idx) => {
+        return (<circle key={idx} r={"1"} cx={this.xScale(d.player1X)} cy={this.yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
                         opacity={"0.2"}/>);
     }
 
-    const makeStockPaths = () => {
-        const stockArray = props.stats["stocks"].map( stock => {
+    makeStockPaths = () => {
+        const stockArray = this.props.stats["stocks"].map( stock => {
             if(stock.startFrame < 0){
                 stock.startFrame = 0;
                 return stock;
@@ -186,32 +190,32 @@ const motionTracker = (props) => {
         let p2StockPaths = [];
 
          stockArray.forEach( (stock, idx) => {
-            const stockSlice = props.frameData.slice(stock.startFrame, stock.endFrame);
+            const stockSlice = this.props.frameData.slice(stock.startFrame, stock.endFrame);
             if(stock.playerIndex === p1Index){
-                p1StockPaths.push(<MotionTrackerPath key={idx} d={p1Line(stockSlice)} color={p1ColorScale(idx)}/>);
+                p1StockPaths.push(<MotionTrackerPath key={idx} d={this.p1Line(stockSlice)} color={this.p1ColorScale(idx)}/>);
             } else {
-                p2StockPaths.push(<MotionTrackerPath key={idx} d={p2Line(stockSlice)} color={p2ColorScale(idx)}/>);
+                p2StockPaths.push(<MotionTrackerPath key={idx} d={this.p2Line(stockSlice)} color={this.p2ColorScale(idx)}/>);
             }
         });
         console.log(p1StockPaths);
          return [p1StockPaths, p2StockPaths];
     }
 
-    const makeComboPaths = () => {
-        const p1Index = props.stats["combos"][0].playerIndex;
+    makeComboPaths = () => {
+        const p1Index = this.props.stats["combos"][0].playerIndex;
 
         let p1ComboPaths = [];
         let p2ComboPaths = [];
 
-        props.stats["combos"].forEach( (combo, idx) => {
-            const comboSlice = props.frameData.slice(combo.startFrame, combo.endFrame);
+        this.props.stats["combos"].forEach( (combo, idx) => {
+            const comboSlice = this.props.frameData.slice(combo.startFrame, combo.endFrame);
             if(combo.playerIndex === p1Index){
                 if(combo.moves.length > 1){
-                    console.log([xScale(props.frameData[combo.startFrame]), yScale(props.frameData[combo.startFrame])]);
+                    console.log([this.xScale(this.props.frameData[combo.startFrame]), this.yScale(this.props.frameData[combo.startFrame])]);
                     p1ComboPaths.push(<MotionTrackerPath key={idx}
-                                                         d={p1Line(comboSlice)}
-                                                         color={p1ComboColorScale(idx)}
-                                                         comboStart={[xScale(props.frameData[combo.startFrame]), yScale(props.frameData[combo.startFrame])]}
+                                                         d={this.p1Line(comboSlice)}
+                                                         color={this.p1ComboColorScale(idx)}
+                                                         comboStart={[this.xScale(this.props.frameData[combo.startFrame]), this.yScale(this.props.frameData[combo.startFrame])]}
                                                          comboLength={combo.moves.length}
                                                          playerIdx={combo.playerIndex}
                     />)
@@ -219,9 +223,9 @@ const motionTracker = (props) => {
             } else {
                 if(combo.moves.length > 1) {
                     p2ComboPaths.push(<MotionTrackerPath key={idx}
-                                                         d={p2Line(comboSlice)}
-                                                         color={p2ComboColorScale(idx)}
-                                                         comboStart={[xScale(props.frameData[combo.startFrame]), yScale(props.frameData[combo.startFrame])]}
+                                                         d={this.p2Line(comboSlice)}
+                                                         color={this.p2ComboColorScale(idx)}
+                                                         comboStart={[this.xScale(this.props.frameData[combo.startFrame]), this.yScale(this.props.frameData[combo.startFrame])]}
                                                          comboLength={combo.moves.length}
                                                          playerIdx={combo.playerIndex}
                     />)
@@ -233,60 +237,62 @@ const motionTracker = (props) => {
         return [p1ComboPaths, p2ComboPaths];
     }
 
-    const stockPaths = makeStockPaths();
-    const p1StockPaths = stockPaths[0];
-    const p2StockPaths = stockPaths[1];
+    stockPaths = this.makeStockPaths();
+    p1StockPaths = this.stockPaths[0];
+    p2StockPaths = this.stockPaths[1];
 
-    const comboPaths = makeComboPaths();
-    const p1ComboPaths = comboPaths[0];
-    const p2ComboPaths = comboPaths[1];
+    comboPaths = this.makeComboPaths();
+    p1ComboPaths = this.comboPaths[0];
+    p2ComboPaths = this.comboPaths[1];
+
+    render() {
+        let paths = [];
+        switch (this.props.whichViz) {
+            case "combo":
+                paths = [this.p1ComboPaths, this.p2ComboPaths];
+                break;
+            case "stock":
+                paths = [this.p1StockPaths, this.p2StockPaths];
+                break;
+            default:
+                paths = [this.p1ComboPaths, this.p2ComboPaths];
+                break;
+        }
+
+        return (
+            <div className={styles.MotionTracker}>
 
 
-    let paths = [];
-    switch (props.whichViz) {
-        case "combo":
-            paths = [p1ComboPaths, p2ComboPaths];
-            break;
-        case "stock":
-            paths = [p1StockPaths, p2StockPaths];
-            break;
-        default:
-            paths = [p1ComboPaths, p2ComboPaths];
-            break;
+                <div className={styles.svgContainer}>
+
+                    <svg width={this.svgProportions[this.props.stageId].xDim}
+                         height={this.svgProportions[this.props.stageId].yDim}>
+                        {/*<DebugAxes*/}
+                        {/*    width={props.width}*/}
+                        {/*    height={props.height}/>*/}
+
+                        {/*{dataPoints}*/}
+                        {/*{<path d={p1Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"green"} fill={"none"}/>}*/}
+                        {/*{<path d={p2Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"blue"} fill={"none"}/>}*/}
+                        {/*{p1StockPaths}*/}
+                        {/*{p2StockPaths}*/}
+
+                        {paths}
+
+
+                    </svg>
+                </div>
+
+                <StageBackground stageId={this.props.stageId}/>
+
+
+                {/*{<h5>{currentData[2]?.player2X}</h5>}*/}
+
+                {this.props.children}
+            </div>
+        );
     }
 
-    return (
-        <div className={styles.MotionTracker}>
 
 
-            <div className={styles.svgContainer}>
-
-                <svg width={svgProportions[props.stageId].xDim}
-                     height={svgProportions[props.stageId].yDim}>
-                    {/*<DebugAxes*/}
-                    {/*    width={props.width}*/}
-                    {/*    height={props.height}/>*/}
-
-                    {/*{dataPoints}*/}
-                    {/*{<path d={p1Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"green"} fill={"none"}/>}*/}
-                    {/*{<path d={p2Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"blue"} fill={"none"}/>}*/}
-                    {/*{p1StockPaths}*/}
-                    {/*{p2StockPaths}*/}
-
-                    {paths}
-
-
-                </svg>
-            </div>
-
-            <StageBackground stageId={props.stageId}/>
-
-
-            {/*{<h5>{currentData[2]?.player2X}</h5>}*/}
-
-            {props.children}
-        </div>
-    );
 }
-
-export default motionTracker;
