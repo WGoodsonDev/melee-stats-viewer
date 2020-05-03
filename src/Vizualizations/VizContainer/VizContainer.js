@@ -9,7 +9,10 @@ import styles from './VizContainer.module.css';
 import MotionTracker from "../MotionTracker/MotionTracker";
 import Heatmap from "../Heatmap/Heatmap";
 import * as d3 from "d3";
-import csv from "../../DataHandling/scripts/game_files/csv/Game_20181114T230153.csv";
+
+// DATA SOURCES
+import csv from "../../DataHandling/scripts/game_files/csv/Game_20190301T011330.csv";
+import stats from '../../DataHandling/scripts/stats.json';
 
 
 export default class VizContainer extends React.Component {
@@ -18,6 +21,8 @@ export default class VizContainer extends React.Component {
         currentViz: 0,
         motionTrackerData: [],
         heatmapData: [],
+        statsData: []
+
     }
 
     height = 630;
@@ -45,7 +50,7 @@ export default class VizContainer extends React.Component {
             console.log(this.mapStageId[stage]);
             switch(id){
                 case 0:
-                    return (<MotionTracker height={this.height} width={this.width} stageId={this.mapStageId[stage]} data={this.state.motionTrackerData}/>);
+                    return (<MotionTracker height={this.height} width={this.width} stageId={this.mapStageId[stage]} data={this.state.motionTrackerData} stats={this.state.statsData}/>);
                 case 1:
                     return(<Heatmap height={this.height} width={this.width} stageId={0}/>);
                 default:
@@ -59,17 +64,28 @@ export default class VizContainer extends React.Component {
         // Load data here
         // TODO: load stage information with position data
         d3.csv(csv).then((data) => {
-            console.log("Successfully loaded ", data.length.toString(), " data points");
-            console.log("data: ", data)
+            // console.log("Successfully loaded ", data.length.toString(), " positional data points");
+            // console.log("positional data: ", data)
 
-            // TODO: load other datasets
             this.setState((state, props) => ({
                 motionTrackerData: data,
             }))
         });
+
+        // Manipulate stats to store what we need
+        //
+
+
+        this.setState((state, props) => ({
+            statsData: stats,
+        }))
+
+
     }
 
     render() {
+
+
         return (
             <div className={styles.VizContainer}>
                 {this.state.motionTrackerData && this.vizPicker(this.state.currentViz)}

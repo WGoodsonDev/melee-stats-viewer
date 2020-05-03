@@ -25,7 +25,7 @@ import * as d3 from "d3";
 import DebugAxes from '../Generic/DebugAxes/DebugAxes';
 import StageBackground from "../Generic/StageBkgndComponent/StageBkgndComponent";
 
-import DataPoint from '../Generic/DataPoint/DataPoint';
+import MotionTrackerStock from './MotionTrackerStock/MotionTrackerStock';
 
 import styles from './MotionTracker.module.css';
 
@@ -153,25 +153,57 @@ const motionTracker = (props) => {
                         opacity={"0.2"}/>);
     }
 
-    // const dataPoints = props.data.map((d, idx) => {
-    //     return makeDataPoint(d, idx);
-    // })
+    const makeStocks = () => {
+
+        const stockArray = props.stats["stocks"].map( stock => {
+            if(stock.startFrame < 0){
+                stock.startFrame = 0;
+                return stock;
+            }
+            return stock;
+        });
+        console.log(stockArray);
+
+        const p1Index = stockArray[0].playerIndex;
+        const p2Index = stockArray[0].opponentIndex;
+
+        let p1StockPaths = [];
+        let p2StockPaths = [];
+
+         stockArray.forEach( (stock, idx) => {
+             const gameSlice = props.data.slice(stock.startFrame, stock.endFrame);
+            if(stock.playerIndex === p1Index){
+                p1StockPaths.push(<MotionTrackerStock key={idx} d={p1Line(gameSlice)} color={"green"}/>);
+            } else {
+                p2StockPaths.push(<path key={idx} d={p2Line(gameSlice)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"blue"} fill={"none"}/>);
+            }
+        });
+        console.log(p1StockPaths);
+         return [p1StockPaths, p2StockPaths];
+    }
+
+    const stockPaths = makeStocks();
+    const p1StockPaths = stockPaths[0];
+
+    const p2StockPaths = stockPaths[1];
 
     return (
-
         <div className={styles.MotionTracker}>
-            <StageBackground stageId={props.stageId}/>
+
             <svg width={svgProportions[props.stageId].xDim}
                   height={svgProportions[props.stageId].yDim}>
                 {/*<DebugAxes*/}
                 {/*    width={props.width}*/}
                 {/*    height={props.height}/>*/}
-                <g className={"points"}>
-                    {/*{dataPoints}*/}
-                    {<path d={p1Line(props.data)} strokeWidth={1.2} stroke={"green"} fill={"none"} />}
-                    {<path d={p2Line(props.data)} strokeWidth={1.2} stroke={"blue"} fill={"none"} />}
-                </g>
+
+                {/*{dataPoints}*/}
+                {/*{<path d={p1Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"green"} fill={"none"}/>}*/}
+                {/*{<path d={p2Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"blue"} fill={"none"}/>}*/}
+                {p1StockPaths[3]}
+
+
             </svg>
+            <StageBackground stageId={props.stageId}/>
 
 
             {/*{<h5>{currentData[2]?.player2X}</h5>}*/}

@@ -7,7 +7,7 @@ const AttackTable = require('./AttackTable');
  */
 function convertComboToStrings(combo) {
     let convertedCombo = [];
-    combo.map((c) => {
+    combo.forEach((c) => {
         convertedCombo.push(AttackTable[c.moveId])
     })
     return convertedCombo;

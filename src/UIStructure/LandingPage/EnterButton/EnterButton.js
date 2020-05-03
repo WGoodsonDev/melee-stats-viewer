@@ -12,8 +12,17 @@ const enterButton = (props) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.EnterButton}>
-                <Link to={"/visualizations"} style={{textDecoration: 'inherit',
-                                                    color: 'inherit'}}>ENTER</Link>
+                <Link to={"/visualizations"}
+                      style={{textDecoration: 'inherit',
+                                color: 'inherit',
+                                width: '100%',
+                                height: '100%',
+                                display: 'block',
+                                position: 'relative',
+                                left: 0,
+                                top: 0,
+                      }
+                      }>ENTER</Link>
             </div>
 
             {props.children}

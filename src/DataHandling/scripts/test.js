@@ -9,48 +9,20 @@ const ComboFilter = require('../ComboFilter');
 
 const game = new SlippiGame('test.slp');
 const meta = game.getSettings();
-console.log(util.inspect(meta, false, null, true));
+// console.log(util.inspect(meta, false, null, true));
 
 
-// const frames = game.getFrames();
-//
-// let framesArray = [];
-//
-// for(const frame in frames){
-//     if(frames.hasOwnProperty(frame)){
-//         framesArray.push(frames[frame]);
-//     }
-// }
-//
-// let cleaned = [];
-// framesArray.forEach((el, idx) => {
-//     if(idx !== 0 && el !== ',' && el !== ']'){
-//         const player1X = el.players[0]?.pre?.positionX;
-//         const player1Y = el.players[0]?.pre?.positionY;
-//         const player2X = el.players[1]?.pre?.positionX;
-//         const player2Y = el.players[1]?.pre?.positionY;
-//         const frameNum = el.frame;
-//         if(frameNum > 0){
-//             cleaned.push({player1X, player1Y, player2X, player2Y, frameNum});
-//         }
-//     }
-// });
-//
-//
-// const filename = 'playerPositions.csv'
-//
-// const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-// const csvWriter = createCsvWriter({
-//     path: {filename},
-//     header: [
-//         {id: 'player1X', title: 'player1X'},
-//         {id: 'player1Y', title: 'player1Y'},
-//         {id: 'player2X', title: 'player2X'},
-//         {id: 'player2Y', title: 'player2Y'},
-//         {id: 'frameNum', title: 'frameNum'},
-//     ]
-// });
-// //
-// csvWriter
-//     .writeRecords(cleaned)
-//     .then(() => console.log('The CSV file was written successfully'));
+const frames = game.getFrames();
+// console.log(util.inspect(frames, false, null, true));
+
+const stats = game.getStats();
+console.log(util.inspect(stats, false, null, true));
+
+try{
+    fs.writeFileSync('./stats.json', JSON.stringify(stats));
+} catch (err) {
+    console.error(err);
+}
+
+
+
