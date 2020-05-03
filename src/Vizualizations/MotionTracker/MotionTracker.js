@@ -156,6 +156,15 @@ const motionTracker = (props) => {
         .domain([0, 4])
         .range(["red", "orange"])
 
+    const p1ComboColorScale = d3.scaleLinear()
+        .domain([0, 10])
+        .range(["purple", "steelblue"])
+
+    const p2ComboColorScale = d3.scaleLinear()
+        .domain([0, 10])
+        .range(["green", "red"])
+
+
     const makeDataPoint = (d, idx) => {
         return (<circle key={idx} r={"1"} cx={xScale(d.player1X)} cy={yScale(d.player1Y)} stroke={"black"} strokeWidth={"0.2px"}
                         opacity={"0.2"}/>);
@@ -197,9 +206,26 @@ const motionTracker = (props) => {
         props.stats["combos"].forEach( (combo, idx) => {
             const comboSlice = props.frameData.slice(combo.startFrame, combo.endFrame);
             if(combo.playerIndex === p1Index){
-                p1ComboPaths.push(<MotionTrackerPath key={idx} d={p1Line(comboSlice)} color={"blue"}/>)
+                if(combo.moves.length > 1){
+                    console.log([xScale(props.frameData[combo.startFrame]), yScale(props.frameData[combo.startFrame])]);
+                    p1ComboPaths.push(<MotionTrackerPath key={idx}
+                                                         d={p1Line(comboSlice)}
+                                                         color={p1ComboColorScale(idx)}
+                                                         comboStart={[xScale(props.frameData[combo.startFrame]), yScale(props.frameData[combo.startFrame])]}
+                                                         comboLength={combo.moves.length}
+                                                         playerIdx={combo.playerIndex}
+                    />)
+                }
             } else {
-                p2ComboPaths.push(<MotionTrackerPath key={idx} d={p2Line(comboSlice)} color={"green"}/>)
+                if(combo.moves.length > 1) {
+                    p2ComboPaths.push(<MotionTrackerPath key={idx}
+                                                         d={p2Line(comboSlice)}
+                                                         color={p2ComboColorScale(idx)}
+                                                         comboStart={[xScale(props.frameData[combo.startFrame]), yScale(props.frameData[combo.startFrame])]}
+                                                         comboLength={combo.moves.length}
+                                                         playerIdx={combo.playerIndex}
+                    />)
+                }
             }
         });
 
