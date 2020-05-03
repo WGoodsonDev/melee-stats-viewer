@@ -12,17 +12,17 @@ import * as d3 from "d3";
 
 // DATA SOURCES
 import csv from "../../DataHandling/scripts/game_files/csv/Game_20181228T005503.csv";
-import stats from '../../DataHandling/scripts/stats.json';
+import allData from '../../DataHandling/scripts/all_data.json';
 
 
 export default class VizContainer extends React.Component {
 
     state = {
         currentViz: 0,
-        motionTrackerData: [],
-        heatmapData: [],
-        statsData: []
-
+        settings: {},
+        frames: {},
+        stats: {},
+        stageId: 8
     }
 
     height = 630;
@@ -38,62 +38,56 @@ export default class VizContainer extends React.Component {
         28: 5,
     }
 
-    vizPicker(id){
-        // console.log("vizPicker::State: ", this.state); WORKING
-        // MotionTracker stageId:
-        // this.mapStageId(this.state.motionTrackerData[1]?.stageId)
-        let stage = 0;
-        if(this.state.motionTrackerData.length){
 
-            stage = this.state.motionTrackerData[54].stageId;
-            // console.log(stage);
-            // console.log(this.mapStageId[stage]);
-            switch(id){
-                case 0:
-                    return (<MotionTracker height={this.height}
-                                           width={this.width}
-                                           stageId={this.mapStageId[stage]}
-                                           frameData={this.state.motionTrackerData}
-                                           stats={this.state.statsData}
-                                           whichViz={"stock"}
-                    />);
-                case 1:
-                    return(<Heatmap height={this.height} width={this.width} stageId={0}/>);
-                default:
-                    return null;
-            }
-        }
-
-    }
 
     componentDidMount() {
-        // Load data here
-        // TODO: load stage information with position data
-        d3.csv(csv).then((data) => {
-            // console.log("Successfully loaded ", data.length.toString(), " positional data points");
-            // console.log("positional data: ", data)
+        // Manipulate data to store what we need
+        const {settings, frames, stats} = allData;
 
-            this.setState((state, props) => ({
-                motionTrackerData: data,
-            }))
-        });
-
-        // Manipulate stats to store what we need
-        //
-
+        const framesFiltered = Object.values(frames);
+        const framesFilteredMore = framesFiltered.map(frame => {
+            return {
+                "frame": frame.frame,
+                "player1": {
+                    "PreActionState": frame.players[0].pre.actionStateId,
+                    "PostActionState": frame.players[0].post.actionStateId,
+                    "PreX": frame.players[0].pre.positionX,
+                    "PreY": frame.players[0].pre.positionY,
+                    "PostX": frame.players[0].post.positionX,
+                    "PostY": frame.players[0].post.positionY,
+                },
+                "player2": {
+                    "PreActionState": frame.players[1].pre.actionStateId,
+                    "PostActionState": frame.players[1].post.actionStateId,
+                    "PreX": frame.players[1].pre.positionX,
+                    "PreY": frame.players[1].pre.positionY,
+                    "PostX": frame.players[1].post.positionX,
+                    "PostY": frame.players[1].post.positionY,
+                }
+            }
+        })
 
         this.setState((state, props) => ({
-            statsData: stats,
+            settings: settings,
+            frames: framesFilteredMore,
+            stats: stats,
+            stageId: settings.stageId
         }))
 
 
     }
 
     render() {
-
         return (
             <div className={styles.VizContainer}>
-                {this.state.motionTrackerData && this.vizPicker(this.state.currentViz)}
+                {this.state.frames.length &&
+                <MotionTracker height={this.height}
+                               width={this.width}
+                               stageId={this.mapStageId[this.state.stageId]}
+                               frameData={this.state.frames}
+                               stats={this.state.stats}
+
+                />}
                 <h1>This is a title or something</h1>
                 <div>Left Button</div>
                 <div>Right Button</div>

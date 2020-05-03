@@ -8,7 +8,7 @@ const ComboFilter = require('../ComboFilter');
 
 
 const game = new SlippiGame('test.slp');
-const meta = game.getSettings();
+const settings = game.getSettings();
 // console.log(util.inspect(meta, false, null, true));
 
 
@@ -18,8 +18,14 @@ const frames = game.getFrames();
 const stats = game.getStats();
 console.log(util.inspect(stats, false, null, true));
 
+const finalJson = {
+    "settings": settings,
+    "frames": frames,
+    "stats": stats,
+}
+
 try{
-    fs.writeFileSync('./stats.json', JSON.stringify(stats));
+    fs.writeFileSync('./all_data.json', JSON.stringify(finalJson));
 } catch (err) {
     console.error(err);
 }

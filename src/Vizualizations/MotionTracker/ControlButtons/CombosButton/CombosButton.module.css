@@ -1,0 +1,8 @@
+.CombosButton {
+    position: absolute;
+    width: 75px;
+    height: 50px;
+    right: 100px;
+    background-color: #85a392;
+    cursor: pointer;
+}

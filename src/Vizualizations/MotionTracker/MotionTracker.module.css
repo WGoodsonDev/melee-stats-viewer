@@ -2,14 +2,6 @@
     position: relative;
 }
 
-.MotionTracker svg:hover {
-
-}
-
-.MotionTracker .StageBackground {
-
-}
-
 .svgContainer {
     position: relative;
     z-index: 1000;
