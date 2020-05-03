@@ -11,7 +11,7 @@ import Heatmap from "../Heatmap/Heatmap";
 import * as d3 from "d3";
 
 // DATA SOURCES
-import csv from "../../DataHandling/scripts/game_files/csv/Game_20190107T000138.csv";
+import csv from "../../DataHandling/scripts/game_files/csv/Game_20181210T230929.csv";
 import stats from '../../DataHandling/scripts/stats.json';
 
 
@@ -53,8 +53,10 @@ export default class VizContainer extends React.Component {
                     return (<MotionTracker height={this.height}
                                            width={this.width}
                                            stageId={this.mapStageId[stage]}
-                                           data={this.state.motionTrackerData}
-                                           stats={this.state.statsData}/>);
+                                           frameData={this.state.motionTrackerData}
+                                           stats={this.state.statsData}
+                                           whichViz={"stock"}
+                    />);
                 case 1:
                     return(<Heatmap height={this.height} width={this.width} stageId={0}/>);
                 default:

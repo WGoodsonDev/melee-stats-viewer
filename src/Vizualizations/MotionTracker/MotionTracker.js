@@ -25,7 +25,7 @@ import * as d3 from "d3";
 import DebugAxes from '../Generic/DebugAxes/DebugAxes';
 import StageBackground from "../Generic/StageBkgndComponent/StageBkgndComponent";
 
-import MotionTrackerStock from './MotionTrackerStock/MotionTrackerStock';
+import MotionTrackerPath from './MotionTrackerPath/MotionTrackerPath';
 
 import styles from './MotionTracker.module.css';
 
@@ -161,8 +161,7 @@ const motionTracker = (props) => {
                         opacity={"0.2"}/>);
     }
 
-    const makeStocks = () => {
-
+    const makeStockPaths = () => {
         const stockArray = props.stats["stocks"].map( stock => {
             if(stock.startFrame < 0){
                 stock.startFrame = 0;
@@ -173,33 +172,69 @@ const motionTracker = (props) => {
         console.log(stockArray);
 
         const p1Index = stockArray[0].playerIndex;
-        const p2Index = stockArray[0].opponentIndex;
 
         let p1StockPaths = [];
         let p2StockPaths = [];
 
          stockArray.forEach( (stock, idx) => {
-            const gameSlice = props.data.slice(stock.startFrame, stock.endFrame + 1);
+            const stockSlice = props.frameData.slice(stock.startFrame, stock.endFrame);
             if(stock.playerIndex === p1Index){
-                p1StockPaths.push(<MotionTrackerStock key={idx} d={p1Line(gameSlice)} color={p1ColorScale(idx)}/>);
+                p1StockPaths.push(<MotionTrackerPath key={idx} d={p1Line(stockSlice)} color={p1ColorScale(idx)}/>);
             } else {
-                p2StockPaths.push(<MotionTrackerStock key={idx} d={p2Line(gameSlice)} color={p2ColorScale(idx)}/>);
+                p2StockPaths.push(<MotionTrackerPath key={idx} d={p2Line(stockSlice)} color={p2ColorScale(idx)}/>);
             }
         });
         console.log(p1StockPaths);
          return [p1StockPaths, p2StockPaths];
     }
 
-    const stockPaths = makeStocks();
-    const p1StockPaths = stockPaths[0];
+    const makeComboPaths = () => {
+        const p1Index = props.stats["combos"][0].playerIndex;
 
+        let p1ComboPaths = [];
+        let p2ComboPaths = [];
+
+        props.stats["combos"].forEach( (combo, idx) => {
+            const comboSlice = props.frameData.slice(combo.startFrame, combo.endFrame);
+            if(combo.playerIndex === p1Index){
+                p1ComboPaths.push(<MotionTrackerPath key={idx} d={p1Line(comboSlice)} color={"blue"}/>)
+            } else {
+                p2ComboPaths.push(<MotionTrackerPath key={idx} d={p2Line(comboSlice)} color={"green"}/>)
+            }
+        });
+
+        console.log(p1ComboPaths);
+        return [p1ComboPaths, p2ComboPaths];
+    }
+
+    const stockPaths = makeStockPaths();
+    const p1StockPaths = stockPaths[0];
     const p2StockPaths = stockPaths[1];
+
+    const comboPaths = makeComboPaths();
+    const p1ComboPaths = comboPaths[0];
+    const p2ComboPaths = comboPaths[1];
+
+
+    let paths = [];
+    switch (props.whichViz) {
+        case "combo":
+            paths = [p1ComboPaths, p2ComboPaths];
+            break;
+        case "stock":
+            paths = [p1StockPaths, p2StockPaths];
+            break;
+        default:
+            paths = [p1ComboPaths, p2ComboPaths];
+            break;
+    }
 
     return (
         <div className={styles.MotionTracker}>
 
 
             <div className={styles.svgContainer}>
+
                 <svg width={svgProportions[props.stageId].xDim}
                      height={svgProportions[props.stageId].yDim}>
                     {/*<DebugAxes*/}
@@ -209,8 +244,10 @@ const motionTracker = (props) => {
                     {/*{dataPoints}*/}
                     {/*{<path d={p1Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"green"} fill={"none"}/>}*/}
                     {/*{<path d={p2Line(props.data)} strokeDasharray="2,2" strokeWidth={1.2} stroke={"blue"} fill={"none"}/>}*/}
-                    {p1StockPaths}
-                    {p2StockPaths}
+                    {/*{p1StockPaths}*/}
+                    {/*{p2StockPaths}*/}
+
+                    {paths}
 
 
                 </svg>

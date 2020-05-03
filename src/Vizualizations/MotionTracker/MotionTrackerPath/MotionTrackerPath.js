@@ -4,7 +4,7 @@
 import React from 'react';
 
 
-export default class MotionTrackerStock extends React.Component{
+export default class MotionTrackerPath extends React.Component{
 
     state = {
         strokeWidth: "3"
@@ -27,7 +27,9 @@ export default class MotionTrackerStock extends React.Component{
                   strokeLinejoin={"round"}
                   strokeWidth={this.state.strokeWidth}
                   stroke={this.props.color}
-                  fill={"none"}/>
+                  fill={"none"}
+                  opacity={"0.5"}
+            />
         );
     }
 
