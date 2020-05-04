@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-
+import * as d3 from 'd3';
 
 export default class ComboHit extends React.Component {
     state = {
@@ -13,23 +13,33 @@ export default class ComboHit extends React.Component {
 
     highlight = () => {
         this.setState({
-            r: 20,
+            r: (this.state.r * 1.8),
             tooltipOpen: true
         });
     }
 
     unhighlight = () => {
         this.setState({
-            r: 15,
+            r: (this.state.r / 1.8),
             tooltipOpen: false
         });
+    }
+
+    radiusScale = d3.scaleLinear()
+        .domain([0, 29])
+        .range([10,26])
+
+    componentDidMount() {
+        this.setState({
+            r: this.radiusScale(this.props.hit.damage),
+        })
     }
 
     render() {
         return (
             <g>
                 <circle cx={this.props.hit.x} cy={this.props.hit.y}
-                        r={this.state.r.toString()}
+                        r={this.state.r}
                         strokeWidth={"5"}
                         stroke={"transparent"}
                         fill={this.props.color}
