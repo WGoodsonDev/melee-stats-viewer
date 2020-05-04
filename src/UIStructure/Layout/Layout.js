@@ -31,9 +31,9 @@ export default class Layout extends React.Component {
             <div className={styles.Layout}>
 
 
-                <div onClick={this.openSidebar} >
-                    <OpenButton/>
-                </div>
+
+                <OpenButton click={this.openSidebar}/>
+
 
                 <Sidebar isVisible={this.state.sidebarIsVisible} closeSidebar={this.closeSidebar}/>
 

@@ -8,7 +8,7 @@
     width: 300px;
     background-color: #85a392;
     overflow-x: hidden;
-    z-index: 1;
+    z-index: 10;
     transition: width 0.3s;
     transition-timing-function: cubic-bezier(.11,.87,.7,1.01);
     filter: drop-shadow( 3px 0px 2px rgba(0, 0, 0, .4));
@@ -23,7 +23,7 @@
     width: 0;
     background-color: #85a392;
     overflow-x: hidden;
-    z-index: 1;
+    z-index: 10;
     transition: width 0.3s;
     transition-timing-function: cubic-bezier(.11,.87,.7,1.01);
     filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .4));

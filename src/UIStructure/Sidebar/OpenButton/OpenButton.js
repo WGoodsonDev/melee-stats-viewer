@@ -8,7 +8,7 @@ import styles from './OpenButton.module.css';
 const openButton = (props) => {
 
     return (
-        <div className={styles.OpenButton}>
+        <div className={styles.OpenButton} onClick={props.click}>
             <svg height={"100px"} width={"50px"}>
                 <circle cx={"50%"} cy={"50px"} r={"16"} stroke={"#f5b971"} strokeWidth={"2"} fill={"none"}/>
             </svg>
