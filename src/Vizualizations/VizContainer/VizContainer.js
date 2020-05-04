@@ -9,7 +9,7 @@ import styles from './VizContainer.module.css';
 import MotionTracker from "../MotionTracker/MotionTracker";
 
 // DATA SOURCES
-import allData from '../../DataHandling/scripts/json/Game_20190117T191554.json';
+import allData from '../../DataHandling/scripts/json/Game_20181114T225228.json';
 import ControlBar from "../MotionTracker/ControlBar/ControlBar";
 
 
@@ -79,18 +79,18 @@ export default class VizContainer extends React.Component {
         return (
             <div className={styles.VizContainer}>
                 <ControlBar orientation={"vertical"}>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
-                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
+                    <div className={styles.ctrlButtonLeft}/>
                 </ControlBar>
                 {this.state.frames.length &&
                 <MotionTracker height={this.height}
@@ -100,9 +100,14 @@ export default class VizContainer extends React.Component {
                                stats={this.state.stats}
 
                 />}
-                <h1>This is a title or something</h1>
-                <div>Left Button</div>
-                <div>Right Button</div>
+
+                <ControlBar orientation={"horizontal"}>
+                    <div className={styles.ctrlButtonTop}/>
+                    <div className={styles.ctrlButtonTop}/>
+                    <div className={styles.ctrlButtonTop}/>
+                    <div className={styles.ctrlButtonTop}/>
+                    <div className={styles.ctrlButtonTop}/>
+                </ControlBar>
             </div>
         );
     }

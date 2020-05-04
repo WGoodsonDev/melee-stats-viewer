@@ -11,6 +11,7 @@
     z-index: 1;
     transition: width 0.3s;
     transition-timing-function: cubic-bezier(.11,.87,.7,1.01);
+    filter: drop-shadow( 3px 0px 2px rgba(0, 0, 0, .4));
 }
 
 .SidebarHidden {
@@ -25,6 +26,7 @@
     z-index: 1;
     transition: width 0.3s;
     transition-timing-function: cubic-bezier(.11,.87,.7,1.01);
+    filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .4));
 }
 
 

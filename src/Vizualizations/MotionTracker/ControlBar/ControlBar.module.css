@@ -1,22 +1,25 @@
 .ControlBarVert {
     position: fixed;
-    left: 0;
+    left: -120px;
     width: 120px;
     height: 640px;
-    background-color: aqua;
+    background-color: #f5b971;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3));
 }
 
 .ControlBarHoriz {
-    position: absolute;
+    position: fixed;
     left: 50%;
+    top: -105px;
     transform: translateX(-50%);
-    width: 860px;
+    width: 1020px;
     height: 95px;
-    background-color: aqua;
+    background-color: #f5b971;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3));
 }

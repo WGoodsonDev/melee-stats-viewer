@@ -67,7 +67,7 @@ export default class MotionTrackerPath extends React.Component{
                       strokeWidth={this.state.strokeWidth}
                       stroke={this.props.color}
                       fill={"none"}
-                      opacity={"0.5"}
+                      opacity={"0.7"}
                 />
                 {comboHits}
                 <foreignObject x={10} y={10} width={120} height={120}>
