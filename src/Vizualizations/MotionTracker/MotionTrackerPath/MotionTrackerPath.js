@@ -2,6 +2,7 @@
     Created by Warren Goodson
 */
 import React from 'react';
+import ComboHit from "./ComboHit/ComboHit";
 
 export default class MotionTrackerPath extends React.Component{
     constructor(props) {
@@ -29,14 +30,24 @@ export default class MotionTrackerPath extends React.Component{
         });
     }
 
-    onMouseMove(e){
+    onMouseMove = (e) => {
         this.setState({
             mouseX: e.nativeEvent.offsetX,
             mouseY: e.nativeEvent.offsetY
         })
     }
 
+    generateComboHits = () =>{
+        return this.props.comboHits.map((hit, idx)=> {
+            console.log(hit);
+            return (
+                <ComboHit hit={hit} color={this.props.color} key={idx}/>
+                );
+        })
+    }
+
     render() {
+        const comboHits = this.generateComboHits();
         return (
             <g>
                 <path onMouseOver={this.highlight}
@@ -49,6 +60,7 @@ export default class MotionTrackerPath extends React.Component{
                       fill={"none"}
                       opacity={"0.5"}
                 />
+                {comboHits}
                 <foreignObject x={10} y={10} width={120} height={120}>
                     {this.state.tooltipOpen ?
                         <div className={"tooltip"}>

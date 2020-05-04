@@ -6,6 +6,9 @@ import React from 'react';
 import styles from './ComboTracker.module.css';
 import MotionTrackerPath from "../MotionTrackerPath/MotionTrackerPath";
 import * as d3 from "d3";
+
+import attackTable from '../../../DataHandling/AttackTable';
+
 import yoshis from "../../../Assets/stages/png/yoshis_downscaled_648.png";
 import fountain from "../../../Assets/stages/png/fountain_downscaled_648.png";
 import stadium from "../../../Assets/stages/png/stadium_downscaled_648.png";
@@ -16,13 +19,6 @@ import dreamland from "../../../Assets/stages/png/dreamland_downscaled_648.png";
 const comboTracker = (props) => {
     const minComboLength = 3;
 
-
-// stageDimensions[stageId] = {
-//      xMin: [number]
-//      xMax: [number]
-//      yMin: [number]
-//      yMax: [number]
-//}
     const stageDimensions = {
         0: {
             xMin: -175.7,
@@ -121,6 +117,11 @@ const comboTracker = (props) => {
         let p1ComboPathsDefense = [];
         let p2ComboPathsDefense = [];
 
+        let comboPathsOffense = [];
+        let comboPathsDefense = [];
+
+
+
         const positionData = props.frameData.map(frame => {
             return {
                 "player1X": frame.player1.PreX,
@@ -132,50 +133,88 @@ const comboTracker = (props) => {
 
         props.combos.forEach( (combo, idx) => {
             const comboSlice = positionData.slice(combo.startFrame, combo.endFrame);
-            if(combo.playerIndex === p1Index){
-                if(combo.moves.length >= minComboLength){
-                    p1ComboPathsOffense.push(
-                        <MotionTrackerPath key={idx}
-                                         d={p1Line(comboSlice)}
-                                         color={p1ComboColorScale(idx)}
-                                         comboLength={combo.moves.length}
-                                         playerIdx={combo.playerIndex}
-                        />
-                    );
-                    p2ComboPathsDefense.push(
-                        <MotionTrackerPath key={idx + 1000}
-                                           d={p2Line(comboSlice)}
-                                           color={p2ComboColorScale(idx)}
-                                           comboLength={combo.moves.length}
-                                           playerIdx={combo.playerIndex + 1}
-                        />
-                    );
+
+            // Need:
+            // x and y positions of hits (based on frame) - use xScale and yScale
+            // moveId, translated to string
+            // playerID
+            // everything else can stay in moves array
+
+            const translatedCombo = combo.moves.map((move) => {
+                return {
+                    "frame": move.frame,
+                    "move": attackTable[move.moveId],
+                    "x": xScale(positionData[move.frame].player1X),
+                    "y": yScale(positionData[move.frame].player1Y),
+                    "hitCount": move.hitCount,
+                    "damage": move.damage,
                 }
-            } else {
-                if(combo.moves.length >= minComboLength) {
-                    p2ComboPathsOffense.push(<MotionTrackerPath key={idx}
-                                                         d={p2Line(comboSlice)}
-                                                         color={p2ComboColorScale(idx)}
-                                                         comboLength={combo.moves.length}
-                                                         playerIdx={combo.playerIndex}
-                    />);
-                }
+            });
+
+            if(combo.moves.length >= minComboLength) {
+                comboPathsOffense.push(<MotionTrackerPath key={idx}
+                                                          d={p1Line(comboSlice)}
+                                                          color={p1ComboColorScale(idx)}
+                                                          comboLength={combo.moves.length}
+                                                          playerIdx={combo.playerIndex}
+                                                          comboHits={translatedCombo}
+                />);
             }
+
+
+
+        //     if(combo.playerIndex === p1Index){
+        //         if(combo.moves.length >= minComboLength){
+        //
+        //
+        //
+        //             p1ComboPathsOffense.push(
+        //                 <MotionTrackerPath key={idx}
+        //                                  d={p1Line(comboSlice)}
+        //                                  color={p1ComboColorScale(idx)}
+        //                                  comboLength={combo.moves.length}
+        //                                  playerIdx={combo.playerIndex}
+        //                 />
+        //             );
+        //             p2ComboPathsDefense.push(
+        //                 <MotionTrackerPath key={idx + 1000}
+        //                                    d={p2Line(comboSlice)}
+        //                                    color={p2ComboColorScale(idx)}
+        //                                    comboLength={combo.moves.length}
+        //                                    playerIdx={combo.playerIndex + 1}
+        //
+        //                 />
+        //             );
+        //         }
+        //     } else {
+        //         if(combo.moves.length >= minComboLength) {
+        //             p2ComboPathsOffense.push(<MotionTrackerPath key={idx}
+        //                                                  d={p2Line(comboSlice)}
+        //                                                  color={p2ComboColorScale(idx)}
+        //                                                  comboLength={combo.moves.length}
+        //                                                  playerIdx={combo.playerIndex}
+        //             />);
+        //         }
+        //     }
         });
 
-        return {p1ComboPathsOffense, p2ComboPathsDefense, p2ComboPathsOffense, p1ComboPathsDefense};
+        // return {p1ComboPathsOffense, p2ComboPathsDefense, p2ComboPathsOffense, p1ComboPathsDefense};
+        return comboPathsOffense;
     }
 
 
-    const {p1ComboPathsOffense, p2ComboPathsDefense, p2ComboPathsOffense, p1ComboPathsDefense} = makeComboPaths();
+    // const {p1ComboPathsOffense, p2ComboPathsDefense, p2ComboPathsOffense, p1ComboPathsDefense} = makeComboPaths();
+    //
+    // console.log(p1ComboPathsOffense.length, p2ComboPathsDefense.length);
 
-    console.log(p1ComboPathsOffense.length, p2ComboPathsDefense.length);
+
+    const comboPathsOffense = makeComboPaths();
 
     return (
         <g>
-            {p1ComboPathsOffense[2]}
-            {p2ComboPathsDefense[2]}
-            {/*{p2ComboPaths}*/}
+            {/*{p1ComboPathsOffense[2]}*/}
+            {/*{p2ComboPathsDefense[2]}*/}
+            {comboPathsOffense[1]}
         </g>
     );
 }
