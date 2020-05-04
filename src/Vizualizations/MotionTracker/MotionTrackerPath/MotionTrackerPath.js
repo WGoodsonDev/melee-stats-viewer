@@ -37,19 +37,28 @@ export default class MotionTrackerPath extends React.Component{
         })
     }
 
-    generateComboHits = () =>{
-        return this.props.comboHits.map((hit, idx)=> {
+    generateComboHits = () => {
+        return this.props.comboHits.map((hit, idx) => {
             console.log(hit);
             return (
-                <ComboHit hit={hit} color={this.props.color} key={idx}/>
+                <ComboHit hit={hit} color={this.props.color} key={idx} hitNo={idx + 1}/>
                 );
+        })
+    }
+
+    generateComboText = () => {
+        return this.props.comboHits.map((hit, idx) => {
+            return(
+              <text x={740} y={40 * (idx + 1)}>{idx + 1}: {hit.move}</text>
+            );
         })
     }
 
     render() {
         const comboHits = this.generateComboHits();
+        const comboText = this.generateComboText();
         return (
-            <g>
+            <g width={"inherit"}>
                 <path onMouseOver={this.highlight}
                       onMouseOut={this.unhighlight}
                       d={this.props.d}
@@ -70,6 +79,7 @@ export default class MotionTrackerPath extends React.Component{
                     }
 
                 </foreignObject>
+                {comboText}
             </g>
         );
     }

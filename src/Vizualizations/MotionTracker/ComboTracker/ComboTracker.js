@@ -134,6 +134,9 @@ const comboTracker = (props) => {
         props.combos.forEach( (combo, idx) => {
             const comboSlice = positionData.slice(combo.startFrame, combo.endFrame);
 
+            let comboSliceOffense = [];
+
+
             // Need:
             // x and y positions of hits (based on frame) - use xScale and yScale
             // moveId, translated to string
@@ -214,7 +217,7 @@ const comboTracker = (props) => {
         <g>
             {/*{p1ComboPathsOffense[2]}*/}
             {/*{p2ComboPathsDefense[2]}*/}
-            {comboPathsOffense[1]}
+            {comboPathsOffense[0]}
         </g>
     );
 }

@@ -12,7 +12,7 @@ export default class ComboHit extends React.Component {
 
     highlight = () => {
         this.setState({
-            r: 20
+            r: 16
         });
     }
 
@@ -24,15 +24,23 @@ export default class ComboHit extends React.Component {
 
     render() {
         return (
-            <circle cx={this.props.hit.x} cy={this.props.hit.y}
-                    r={this.state.r.toString()}
-                    strokeWidth={"2"}
-                    stroke={this.props.color}
-                    fill={this.props.color}
-                    opacity={"0.3"}
-                    onMouseOver={this.highlight}
-                    onMouseLeave={this.unhighlight}
-            />
+            <g>
+                <circle cx={this.props.hit.x} cy={this.props.hit.y}
+                        r={this.state.r.toString()}
+                        strokeWidth={"2"}
+                        stroke={this.props.color}
+                        fill={this.props.color}
+                        opacity={"0.3"}
+                        onMouseOver={this.highlight}
+                        onMouseLeave={this.unhighlight}>
+
+                </circle>
+                <text x={this.props.hit.x} y={this.props.hit.y} fontSize={"smaller"} textAnchor={"middle"}>{this.props.hitNo}</text>
+            </g>
+
+
+
+
         );
     }
 }
