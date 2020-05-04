@@ -30,10 +30,10 @@ export default class ComboHit extends React.Component {
                         strokeWidth={"2"}
                         stroke={this.props.color}
                         fill={this.props.color}
-                        opacity={"0.3"}
+                        opacity={"0.5"}
                         onMouseOver={this.highlight}
-                        onMouseLeave={this.unhighlight}>
-
+                        onMouseLeave={this.unhighlight}
+                >
                 </circle>
                 <text x={this.props.hit.x} y={this.props.hit.y} fontSize={"smaller"} textAnchor={"middle"}>{this.props.hitNo}</text>
             </g>

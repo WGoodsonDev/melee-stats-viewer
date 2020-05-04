@@ -38,9 +38,6 @@ export default class Layout extends React.Component {
                 <Sidebar isVisible={this.state.sidebarIsVisible} closeSidebar={this.closeSidebar}/>
 
                 <MainView sidebarVisible={this.state.sidebarIsVisible}>
-                    <p>
-                        MORE TEST
-                    </p>
                     {this.props.children}
                 </MainView>
             </div>
