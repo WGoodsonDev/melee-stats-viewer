@@ -162,6 +162,14 @@ const comboTracker = (props) => {
                                                           playerIdx={combo.playerIndex}
                                                           comboHits={translatedCombo}
                 />);
+                comboPathsDefense.push(<MotionTrackerPath key={idx + 1000}
+                                                          d={p2Line(comboSlice)}
+                                                          color={p2ComboColorScale(idx)}
+                                                          comboLength={combo.moves.length}
+                                                          playerIdx={combo.playerIndex}
+
+                />);
+
             }
 
 
@@ -202,7 +210,7 @@ const comboTracker = (props) => {
         });
 
         // return {p1ComboPathsOffense, p2ComboPathsDefense, p2ComboPathsOffense, p1ComboPathsDefense};
-        return comboPathsOffense;
+        return {comboPathsOffense, comboPathsDefense};
     }
 
 
@@ -211,13 +219,14 @@ const comboTracker = (props) => {
     // console.log(p1ComboPathsOffense.length, p2ComboPathsDefense.length);
 
 
-    const comboPathsOffense = makeComboPaths();
+    const {comboPathsOffense, comboPathsDefense} = makeComboPaths();
 
     return (
         <g>
             {/*{p1ComboPathsOffense[2]}*/}
             {/*{p2ComboPathsDefense[2]}*/}
-            {comboPathsOffense[7]}
+            {comboPathsOffense[0]}
+            {comboPathsDefense[0]}
         </g>
     );
 }
