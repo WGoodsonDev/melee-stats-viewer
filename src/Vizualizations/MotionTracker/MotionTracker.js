@@ -117,7 +117,9 @@ export default class motionTracker extends React.Component{
                 <div className={styles.svgContainer}>
 
                     <svg width={this.svgProportions[this.props.stageId].xDim}
-                         height={this.svgProportions[this.props.stageId].yDim}>
+                         height={this.svgProportions[this.props.stageId].yDim}
+                         fontWeight={"bold"}
+                    >
                         {/*<DebugAxes*/}
                         {/*    width={props.width}*/}
                         {/*    height={props.height}/>*/}

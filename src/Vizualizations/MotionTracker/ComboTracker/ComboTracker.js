@@ -217,7 +217,7 @@ const comboTracker = (props) => {
         <g>
             {/*{p1ComboPathsOffense[2]}*/}
             {/*{p2ComboPathsDefense[2]}*/}
-            {comboPathsOffense[1]}
+            {comboPathsOffense[6]}
         </g>
     );
 }

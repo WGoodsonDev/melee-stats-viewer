@@ -35,7 +35,7 @@ export default class ComboHit extends React.Component {
                         onMouseLeave={this.unhighlight}
                 >
                 </circle>
-                <text x={this.props.hit.x} y={this.props.hit.y} fontSize={"smaller"} textAnchor={"middle"}>{this.props.hitNo}</text>
+                <text x={this.props.hit.x} y={this.props.hit.y + 5} fontSize={"smaller"} textAnchor={"middle"}>{this.props.hitNo}</text>
             </g>
 
 
