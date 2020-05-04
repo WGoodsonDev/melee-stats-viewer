@@ -4,6 +4,7 @@
 import React from 'react';
 
 import VizContainer from "../../../Vizualizations/VizContainer/VizContainer";
+import ControlBar from "../../../Vizualizations/MotionTracker/ControlBar/ControlBar";
 
 import styles from './MainView.module.css';
 
@@ -12,7 +13,17 @@ const mainView = (props) => {
     return (
         <div className={styles.MainView}>
             {props.children}
-            <VizContainer></VizContainer>
+            <ControlBar orientation={"horizontal"}>
+                <div className={styles.buttons}></div>
+                <div className={styles.buttons}></div>
+                <div className={styles.buttons}></div>
+                <div className={styles.buttons}></div>
+                <div className={styles.buttons}></div>
+                <div className={styles.buttons}></div>
+                <div className={styles.buttons}></div>
+                <div className={styles.buttons}></div>
+            </ControlBar>
+            <VizContainer/>
         </div>
     );
 }

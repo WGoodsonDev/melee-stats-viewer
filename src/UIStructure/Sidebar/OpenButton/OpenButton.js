@@ -9,8 +9,8 @@ const openButton = (props) => {
 
     return (
         <div className={styles.OpenButton}>
-            <svg height={"20px"} width={"20px"}>
-                <circle cx={"50%"} cy={"50%"} r={"8"} stroke={"black"} strokeWidth={"2"} fill={"none"}></circle>
+            <svg height={"50px"} width={"50px"}>
+                <circle cx={"50%"} cy={"50%"} r={"16"} stroke={"black"} strokeWidth={"2"} fill={"none"}/>
             </svg>
             {props.children}
         </div>

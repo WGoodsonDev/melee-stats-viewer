@@ -7,12 +7,10 @@ import React from 'react';
 import styles from './VizContainer.module.css';
 
 import MotionTracker from "../MotionTracker/MotionTracker";
-import Heatmap from "../Heatmap/Heatmap";
-import * as d3 from "d3";
 
 // DATA SOURCES
-import csv from "../../DataHandling/scripts/game_files/csv/Game_20181228T005503.csv";
 import allData from '../../DataHandling/scripts/all_data.json';
+import ControlBar from "../MotionTracker/ControlBar/ControlBar";
 
 
 export default class VizContainer extends React.Component {
@@ -80,6 +78,20 @@ export default class VizContainer extends React.Component {
     render() {
         return (
             <div className={styles.VizContainer}>
+                <ControlBar orientation={"vertical"}>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                    <div className={styles.ctrlButton}></div>
+                </ControlBar>
                 {this.state.frames.length &&
                 <MotionTracker height={this.height}
                                width={this.width}
@@ -91,7 +103,6 @@ export default class VizContainer extends React.Component {
                 <h1>This is a title or something</h1>
                 <div>Left Button</div>
                 <div>Right Button</div>
-                {this.props.children}
             </div>
         );
     }

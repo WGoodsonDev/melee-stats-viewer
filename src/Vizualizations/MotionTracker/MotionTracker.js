@@ -31,6 +31,8 @@ import ComboTracker from './ComboTracker/ComboTracker';
 import CombosButton from './ControlButtons/CombosButton/CombosButton';
 import StocksButton from './ControlButtons/StocksButton/StocksButton'
 
+import ControlBar from "./ControlBar/ControlBar";
+
 
 import styles from './MotionTracker.module.css';
 
@@ -126,8 +128,9 @@ export default class motionTracker extends React.Component{
 
                 <StageBackground stageId={this.props.stageId}/>
 
-                <CombosButton click={this.switchToCombos}/>
-                <StocksButton click={this.switchToStocks}/>
+
+                {/*<CombosButton click={this.switchToCombos}/>*/}
+                {/*<StocksButton click={this.switchToStocks}/>*/}
 
             </div>
         );

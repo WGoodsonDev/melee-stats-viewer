@@ -31,7 +31,7 @@ export default class Layout extends React.Component {
             <div className={styles.Layout}>
 
 
-                <div onClick={this.openSidebar} className={styles.OpenButton}>
+                <div onClick={this.openSidebar} >
                     <OpenButton/>
                 </div>
 
