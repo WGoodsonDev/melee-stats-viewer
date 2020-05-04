@@ -9,7 +9,7 @@ import styles from './VizContainer.module.css';
 import MotionTracker from "../MotionTracker/MotionTracker";
 
 // DATA SOURCES
-import allData from '../../DataHandling/scripts/json/Game_20181114T225228.json';
+import allData from '../../DataHandling/scripts/json/Game_20181210T225909.json';
 import ControlBar from "../MotionTracker/ControlBar/ControlBar";
 
 
@@ -47,6 +47,7 @@ export default class VizContainer extends React.Component {
             return {
                 "frame": frame.frame,
                 "player1": {
+                    "Character": settings.players[0].characterId,
                     "PreActionState": frame.players[0].pre.actionStateId,
                     "PostActionState": frame.players[0].post.actionStateId,
                     "PreX": frame.players[0].pre.positionX,
@@ -55,6 +56,7 @@ export default class VizContainer extends React.Component {
                     "PostY": frame.players[0].post.positionY,
                 },
                 "player2": {
+                    "Character": settings.players[1].characterId,
                     "PreActionState": frame.players[1].pre.actionStateId,
                     "PostActionState": frame.players[1].post.actionStateId,
                     "PreX": frame.players[1].pre.positionX,

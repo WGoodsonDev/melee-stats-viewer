@@ -4,7 +4,7 @@
 import React from 'react';
 
 import styles from './StockTracker.module.css';
-import MotionTrackerPath from "../MotionTrackerPath/MotionTrackerPath";
+import ComboTrackerPath from "../ComboTrackerPath/ComboTrackerPath";
 import * as d3 from "d3";
 import yoshis from "../../../Assets/stages/png/yoshis_downscaled_648.png";
 import fountain from "../../../Assets/stages/png/fountain_downscaled_648.png";
@@ -130,9 +130,9 @@ const stockTracker = (props) => {
         stockArray.forEach((stock, idx) => {
             const stockSlice = positionData.slice(stock.startFrame, stock.endFrame);
             if (stock.playerIndex === p1Index) {
-                p1StockPaths.push(<MotionTrackerPath key={idx} d={p1Line(stockSlice)} color={p1ColorScale(idx)}/>);
+                p1StockPaths.push(<ComboTrackerPath key={idx} d={p1Line(stockSlice)} color={p1ColorScale(idx)}/>);
             } else {
-                p2StockPaths.push(<MotionTrackerPath key={idx} d={p2Line(stockSlice)} color={p2ColorScale(idx)}/>);
+                p2StockPaths.push(<ComboTrackerPath key={idx} d={p2Line(stockSlice)} color={p2ColorScale(idx)}/>);
             }
         });
         return [p1StockPaths, p2StockPaths];

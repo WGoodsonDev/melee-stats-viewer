@@ -7,18 +7,18 @@ import React from 'react';
 
 export default class ComboHit extends React.Component {
     state = {
-        r: 10,
+        r: 15,
     }
 
     highlight = () => {
         this.setState({
-            r: 16
+            r: 20
         });
     }
 
     unhighlight = () => {
         this.setState({
-            r: 10
+            r: 15
         });
     }
 
@@ -27,8 +27,8 @@ export default class ComboHit extends React.Component {
             <g>
                 <circle cx={this.props.hit.x} cy={this.props.hit.y}
                         r={this.state.r.toString()}
-                        strokeWidth={"2"}
-                        stroke={this.props.color}
+                        strokeWidth={"5"}
+                        stroke={"transparent"}
                         fill={this.props.color}
                         opacity={"0.5"}
                         onMouseOver={this.highlight}

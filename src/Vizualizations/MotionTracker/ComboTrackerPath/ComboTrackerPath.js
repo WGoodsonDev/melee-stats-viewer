@@ -4,7 +4,7 @@
 import React from 'react';
 import ComboHit from "./ComboHit/ComboHit";
 
-export default class MotionTrackerPath extends React.Component{
+export default class ComboTrackerPath extends React.Component{
     constructor(props) {
         super(props);
         this.onMouseMove = this.onMouseMove.bind(this);
@@ -42,8 +42,14 @@ export default class MotionTrackerPath extends React.Component{
             return this.props.comboHits.map((hit, idx) => {
                 console.log(hit);
                 return (
-                    <ComboHit hit={hit} color={this.props.color} key={idx} hitNo={idx + 1}/>
+                    <ComboHit character={hit.character} hit={hit} color={this.props.color} key={idx} hitNo={idx + 1}/>
                 );
+            })
+        } else if (this.props.hitsTaken){
+            return this.props.hitsTaken.map((hit, idx) => {
+                return(
+                    <ComboHit character={hit.character} hit={hit} color={this.props.color} key={idx} hitNo={idx + 1}/>
+                )
             })
         }
         return null;
@@ -53,11 +59,17 @@ export default class MotionTrackerPath extends React.Component{
         if(this.props.comboHits){
             return this.props.comboHits.map((hit, idx) => {
                 return(
-                    <text x={740} y={40 * (idx + 1)}>{idx + 1}: {hit.move}</text>
+                    <text x={640} y={40 * (idx + 1)}>{idx + 1}: {hit.move}: {hit.damage}%</text>
                 );
             })
+        } else if (this.props.hitsTaken){
+            return this.props.hitsTaken.map((hit, idx) => {
+                return(
+                    <text x={640} y={40 * (idx + 1)}>{idx + 1}: {hit.move}: {hit.damage}%</text>
+                )
+            })
         }
-        return null;
+
     }
 
     render() {
@@ -74,14 +86,14 @@ export default class MotionTrackerPath extends React.Component{
                       stroke={this.props.color}
                       fill={"none"}
                       opacity={"0.7"}
-                      filter={"drop-shadow( 3px 3px 2px rgba(0, 0, 0, 1))"}
+                      filter={"drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))"}
                 />
                 {comboHits}
-                <foreignObject x={10} y={10} width={120} height={120}>
+                <foreignObject x={10} y={10} width={160} height={120}>
                     {this.state.tooltipOpen ?
                         <div className={"tooltip"}>
-                            <h5>Player in port: {this.props.playerIdx}</h5>
-                            <h5>Combo length: {this.props.comboLength}</h5>
+                            <p>Combo length: {this.props.comboLength}</p>
+                            <p>{this.props.didKill?`Combo did kill`:`Combo did not kill`}</p>
                         </div> : null
                     }
 

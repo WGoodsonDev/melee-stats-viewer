@@ -16,19 +16,19 @@ const frames = game.getFrames();
 // console.log(util.inspect(frames, false, null, true));
 
 const stats = game.getStats();
-console.log(util.inspect(stats, false, null, true));
+console.log(util.inspect(settings, false, null, true));
 
-const finalJson = {
-    "settings": settings,
-    "frames": frames,
-    "stats": stats,
-}
-
-try{
-    fs.writeFileSync('./all_data.json', JSON.stringify(finalJson));
-} catch (err) {
-    console.error(err);
-}
+// const finalJson = {
+//     "settings": settings,
+//     "frames": frames,
+//     "stats": stats,
+// }
+//
+// try{
+//     fs.writeFileSync('./all_data.json', JSON.stringify(finalJson));
+// } catch (err) {
+//     console.error(err);
+// }
 
 
 
