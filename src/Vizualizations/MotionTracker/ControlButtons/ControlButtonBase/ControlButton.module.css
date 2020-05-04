@@ -1,0 +1,16 @@
+.ControlButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 120px;
+    background-color: #85a392;
+    color: #f5b971;
+    text-align: center;
+}
+
+.ControlButton:hover {
+    color: #ffecc7;
+    background-color: #5ea173;
+    cursor: pointer;
+}

@@ -10,17 +10,18 @@ export default class ComboHit extends React.Component {
         r: 15,
         tooltipOpen: false
     }
+    radiusScaleFactor = 1.6;
 
     highlight = () => {
         this.setState({
-            r: (this.state.r * 1.8),
+            r: (this.state.r * this.radiusScaleFactor),
             tooltipOpen: true
         });
     }
 
     unhighlight = () => {
         this.setState({
-            r: (this.state.r / 1.8),
+            r: (this.state.r / this.radiusScaleFactor),
             tooltipOpen: false
         });
     }

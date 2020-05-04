@@ -147,7 +147,7 @@ const comboTracker = (props) => {
                         "x": xScale(positionData[move.frame].player1X),
                         "y": yScale(positionData[move.frame].player1Y),
                         "hitCount": move.hitCount,
-                        "damage": move.damage.toPrecision(3),
+                        "damage": move.damage.toPrecision(2),
                         "character": props.frameData[0]["player1"].Character
                     };
                 });
@@ -159,7 +159,7 @@ const comboTracker = (props) => {
                         "x": xScale(positionData[move.frame].player2X),
                         "y": yScale(positionData[move.frame].player2Y),
                         "hitCount": move.hitCount,
-                        "damage": move.damage.toPrecision(3),
+                        "damage": move.damage.toPrecision(2),
                         "character": props.frameData[0]["player2"].Character
                     };
                 });
