@@ -8,6 +8,7 @@ import ComboTrackerPath from "../ComboTrackerPath/ComboTrackerPath";
 import * as d3 from "d3";
 
 import attackTable from '../../../DataHandling/AttackTable';
+import ComboHit from "../ComboTrackerPath/ComboHit/ComboHit";
 
 
 const comboTracker = (props) => {
@@ -103,17 +104,41 @@ const comboTracker = (props) => {
         .domain([0, 10])
         .range(["green", "red"])
 
+
+    const generateHitBubbles = () => {
+
+
+        let p1HitBubbles = [];
+        let p2HitBubbles = [];
+        if(props.hitBubblesVisibleP1){
+            if(props.comboHits){
+                p1HitBubbles = props.comboHits.map((hit, idx) => {
+                    return (
+                        <ComboHit character={hit.character} hit={hit} color={props.color} key={idx} hitNo={idx + 1}/>
+                    );
+                })
+            }
+        }
+        if(props.hitBubblesVisibleP2){
+            if(props.comboHits){
+                p2HitBubbles = props.comboHits.map((hit, idx) => {
+                    return (
+                        <ComboHit character={hit.character} hit={hit} color={props.color} key={idx} hitNo={idx + 1}/>
+                    );
+                })
+            }
+        }
+        console.log(p1HitBubbles, p2HitBubbles);
+        return [p1HitBubbles, p2HitBubbles];
+    }
+
     const makeComboPaths = () => {
         const p1Index = props.combos[0].playerIndex;
 
-        let p1ComboPathsOffense = [];
-        let p2ComboPathsOffense = [];
 
-        let p1ComboPathsDefense = [];
-        let p2ComboPathsDefense = [];
 
-        let comboPathsOffense = [];
-        let comboPathsDefense = [];
+        let comboPathsP1 = [];
+        let comboPathsP2 = [];
 
 
 
@@ -131,16 +156,12 @@ const comboTracker = (props) => {
 
             let comboSliceOffense = [];
 
+            // const {comboHitsP1, comboHitsP2} = generateHitObjects(combo, positionData);
 
-            // Need:
-            // x and y positions of hits (based on frame) - use xScale and yScale
-            // moveId, translated to string
-            // playerID
-            // everything else can stay in moves array
-
-            if(combo.moves.length >= minComboLength) {
-                const comboHits = combo.moves.map((move) => {
-                    // const character = props.frames.
+            let comboHitsP1 = [];
+            let comboHitsP2 = [];
+            if (combo.moves.length >= minComboLength) {
+                comboHitsP1 = combo.moves.map((move) => {
                     return {
                         "frame": move.frame,
                         "move": attackTable[move.moveId],
@@ -151,8 +172,8 @@ const comboTracker = (props) => {
                         "character": props.frameData[0]["player1"].Character
                     };
                 });
-
-                const hitsTaken = combo.moves.map( (move) => {
+                console.log(combo.moves);
+                comboHitsP2 = combo.moves.map((move) => {
                     return {
                         "frame": move.frame,
                         "move": attackTable[move.moveId],
@@ -165,34 +186,36 @@ const comboTracker = (props) => {
                 });
 
 
-                comboPathsOffense.push(<ComboTrackerPath key={idx}
-                                                         d={p1Line(comboSlice)}
-                                                         color={p1ComboColorScale(idx)}
-                                                         comboLength={combo.moves.length}
-                                                         playerIdx={combo.playerIndex}
-                                                         comboHits={comboHits}
-                                                         didKill={combo.didKill}
-                                                         hitBubblesVisible={props.hitBubblesVisibleP1}
-                />);
-
-                comboPathsDefense.push(<ComboTrackerPath key={idx + 1000}
-                                                         d={p2Line(comboSlice)}
-                                                         color={p2ComboColorScale(idx)}
-                                                         comboLength={combo.moves.length}
-                                                         playerIdx={combo.playerIndex}
-                                                         hitsTaken={hitsTaken}
-                                                         didKill={combo.didKill}
-                                                         hitBubblesVisible={props.hitBubblesVisibleP2}
-
-
-                />);
-
             }
+
+
+            comboPathsP1.push(<ComboTrackerPath key={idx}
+                                                     d={p1Line(comboSlice)}
+                                                     color={p1ComboColorScale(idx)}
+                                                     comboLength={combo.moves.length}
+                                                     playerIdx={combo.playerIndex}
+                                                     comboHits={comboHitsP1}
+                                                     didKill={combo.didKill}
+
+            />);
+
+            comboPathsP2.push(<ComboTrackerPath key={idx + 1000}
+                                                     d={p2Line(comboSlice)}
+                                                     color={p2ComboColorScale(idx)}
+                                                     comboLength={combo.moves.length}
+                                                     playerIdx={combo.playerIndex}
+                                                     hitsTaken={comboHitsP2}
+                                                     didKill={combo.didKill}
+
+
+
+            />);
+
+
 
         });
 
-        // return {p1ComboPathsOffense, p2ComboPathsDefense, p2ComboPathsOffense, p1ComboPathsDefense};
-        return {comboPathsOffense, comboPathsDefense};
+        return {comboPathsP1, comboPathsP2};
     }
 
     const generateComboText = () => {
@@ -203,31 +226,39 @@ const comboTracker = (props) => {
     }
 
 
-    // const {p1ComboPathsOffense, p2ComboPathsDefense, p2ComboPathsOffense, p1ComboPathsDefense} = makeComboPaths();
-    //
-    // console.log(p1ComboPathsOffense.length, p2ComboPathsDefense.length);
 
 
-    const {comboPathsOffense, comboPathsDefense} = makeComboPaths();
+        // const {p1ComboPathsOffense, p2ComboPathsDefense, p2ComboPathsOffense, p1ComboPathsDefense} = makeComboPaths();
+        //
+        // console.log(p1ComboPathsOffense.length, p2ComboPathsDefense.length);
 
-    // TODO: Conditionally return content based on props (button controls)
-    let displayOffense = comboPathsOffense.map(path => null);
-    let displayDefense = comboPathsOffense.map(path => null);
-    if(props.displayP1){
-        displayOffense = comboPathsOffense;
+
+    const {comboPathsP1, comboPathsP2} = makeComboPaths();
+
+    // Conditionally return content based on props (button controls)
+    let displayOffense = [];
+    let displayDefense = [];
+    if (props.displayP1) {
+        displayOffense = comboPathsP1;
     }
-    if(props.displayP2){
-        displayDefense = comboPathsDefense;
+    if (props.displayP2) {
+        displayDefense = comboPathsP2;
     }
 
     const comboText = generateComboText();
+    const {p1Hits, p2Hits} = generateHitBubbles();
+
     return (
         <g>
             {props.allCombos ? displayOffense : displayOffense[props.currentCombo]}
             {props.allCombos ? displayDefense : displayDefense[props.currentCombo]}
             {/*{props.allCombos ? null : comboText[props.currentCombo]}*/}
+            {props.hitBubblesVisibleP1 ? p1Hits : null}
+            {props.hitBubblesVisibleP2 ? p2Hits : null}
+            {comboText}
         </g>
     );
+
 }
 
 export default comboTracker;

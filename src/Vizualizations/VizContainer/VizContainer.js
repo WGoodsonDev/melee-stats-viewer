@@ -101,6 +101,7 @@ export default class VizContainer extends React.Component {
                                stageId={this.mapStageId[this.state.stageId]}
                                frameData={this.state.frames}
                                stats={this.state.stats}
+                               settings={this.state.settings}
 
                 />}
 

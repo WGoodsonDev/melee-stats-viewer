@@ -49,17 +49,16 @@ export default class motionTracker extends React.Component{
             currentTracker: "combos",
             comboIndex: 0,
             zoomTransform: null,
+            player1Character: this.characterMap[this.props.settings.players[0].characterId],
+            player2Character: this.characterMap[this.props.settings.players[1].characterId],
+            player1Port: this.props.settings.players[0].port,
+            player2Port: this.props.settings.players[1].port,
             displayP1: true,
             displayP2: true,
             allCombos: true,
-            hitBubblesVisibleP1: false,
-            hitBubblesVisibleP2: false
+            hitBubblesVisibleP1: true,
+            hitBubblesVisibleP2: true
         }
-        this.zoom = d3.zoom()
-            .scaleExtent([-5, 5])
-            .translateExtent([[-100, -100], [this.props.width+100, this.props.height+100]])
-            .extent([[-100, -100], [this.props.width+100, this.props.height+100]])
-            .on("zoom", this.zoomed.bind(this));
     }
 
     svgProportions = {
@@ -89,6 +88,41 @@ export default class motionTracker extends React.Component{
         }
     }
 
+    characterMap = {
+        0 : "Cpt. Falcon",
+        1 : "Donkey Kong",
+        2 : "Fox",
+        3  : "Mr. Game & Watch",
+        4 : "Kirby",
+        5 : "Bowser",
+        6 : "Link",
+        7  : "Luigi",
+        8 : "Mario",
+        9  : "Marth",
+        10 : "Mewtwo",
+        11: "Ness",
+        12: "Peach",
+        13 : "Pikachu",
+        14 : "Ice Climbers (Nana)",
+        15 : "Jigglypuff",
+        16 : "Samus",
+        17 : "Yoshi",
+        18 : "Zelda",
+        19: "Sheik",
+        20 : "Falco",
+        21 : "Young Link",
+        22 : "Dr. Mario",
+        23 : "Roy",
+        24 : "Pichu",
+        25 : "Ganondorf",
+        26 : "Master Hand",
+        27 : "Male Wireframe",
+        28 : "Female Wireframe",
+        29 : "Giga Bowser",
+        30 : "Crazy Hand",
+        31 : "Sandbag",
+        32 : "Ice Climbers (Popo)",
+    }
 
 
     switchToCombos = () => {this.setState({currentTracker: "combos"});}
@@ -149,20 +183,6 @@ export default class motionTracker extends React.Component{
         })
     }
 
-    componentDidMount() {
-        d3.select(this.refs.svg)
-            .call(this.zoom)
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        d3.select(this.refs.svg)
-            .call(this.zoom)
-    }
-    zoomed() {
-        this.setState({
-            zoomTransform: d3.event.transform
-        })
-    }
-
 
 
     pickTracker = () => {
@@ -171,11 +191,9 @@ export default class motionTracker extends React.Component{
                 return (
                     <ComboTracker
                         stageId={this.props.stageId}
-                        combos={this.props.stats["combos"]}
+                        combos={this.props.stats.combos}
                         frameData={this.props.frameData}
                         currentCombo={this.state.comboIndex}
-                        zoomTransform={this.state.zoomTransform}
-                        zoomType="scale"
                         displayP1={this.state.displayP1}
                         displayP2={this.state.displayP2}
                         allCombos={this.state.allCombos}
@@ -188,7 +206,7 @@ export default class motionTracker extends React.Component{
                 return (
                     <StockTracker
                         stageId={this.props.stageId}
-                        stocks={this.props.stats["stocks"]}
+                        stocks={this.props.stats.stocks}
                         frameData={this.props.frameData}
                         zoomTransform={this.state.zoomTransform}
                         zoomType="scale"
@@ -206,26 +224,28 @@ export default class motionTracker extends React.Component{
         const tracker = this.pickTracker();
         return (
             <div className={styles.MotionTracker}>
-
-
                 <div className={styles.svgContainer}>
-
                     <svg width={this.svgProportions[this.props.stageId].xDim}
                          height={this.svgProportions[this.props.stageId].yDim}
                          fontWeight={"bold"}
-                         ref={"svg"}
                     >
-                        {/*<DebugAxes*/}
-                        {/*    width={props.width}*/}
-                        {/*    height={props.height}/>*/}
-
                         {tracker}
-                        {/*STATS DISPLAY*/}
+                        {this.state.displayP1 ? <text x={20} y={25}>Port {this.state.player1Port}: {this.state.player1Character}</text> : null}
+                        {this.state.displayP1 ? <text x={20} y={550}>Total damage: {this.props.stats.overall[0].totalDamage.toPrecision(4)}</text> : null}
+                        {this.state.displayP1 ? <text x={20} y={575}>Damage per opening: {this.props.stats.overall[0].damagePerOpening.ratio.toPrecision(3)}</text> : null}
+                        {this.state.displayP1 ? <text x={20} y={600}>Kill count: {this.props.stats.overall[0].killCount}</text> : null}
+                        {this.state.displayP1 ? <text x={20} y={625}>Openings per kill: {this.props.stats.overall[0].openingsPerKill.ratio.toPrecision(3)}</text> : null}
+
+                        {this.state.displayP2 ? <text x={785} y={25}>Port {this.state.player2Port}: {this.state.player2Character}</text> : null}
+                        {this.state.displayP2 ? <text x={760} y={550}>Total damage: {this.props.stats.overall[1].totalDamage.toPrecision(4)}</text> : null}
+                        {this.state.displayP2 ? <text x={760} y={575}>Damage per opening: {this.props.stats.overall[1].damagePerOpening.ratio.toPrecision(3)}</text> : null}
+                        {this.state.displayP2 ? <text x={760} y={600}>Kill count: {this.props.stats.overall[1].killCount}</text> : null}
+                        {this.state.displayP2 ? <text x={760} y={625}>Openings per kill: {this.props.stats.overall[1].openingsPerKill.ratio.toPrecision(3)}</text> : null}
+
+
                     </svg>
                 </div>
-
                 <StageBackground stageId={this.props.stageId}/>
-
                 <ControlBar orientation={"horizontal"}>
                     <ControlButton click={this.prevCombo}>Previous Combo</ControlButton>
                     <ControlButton click={this.nextCombo}>Next Combo</ControlButton>
@@ -237,11 +257,6 @@ export default class motionTracker extends React.Component{
                     <ControlButton click={this.switchToCombos}>Switch to Combos</ControlButton>
                     <ControlButton click={this.switchToStocks}>Switch to Stocks</ControlButton>
                 </ControlBar>
-
-
-                {/*<CombosButton click={this.switchToCombos}/>*/}
-                {/*<StocksButton click={this.switchToStocks}/>*/}
-
             </div>
         );
     }
