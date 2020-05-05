@@ -164,6 +164,7 @@ const comboTracker = (props) => {
                     };
                 });
 
+
                 comboPathsOffense.push(<ComboTrackerPath key={idx}
                                                          d={p1Line(comboSlice)}
                                                          color={p1ComboColorScale(idx)}
@@ -171,6 +172,7 @@ const comboTracker = (props) => {
                                                          playerIdx={combo.playerIndex}
                                                          comboHits={comboHits}
                                                          didKill={combo.didKill}
+                                                         hitBubblesVisible={props.hitBubblesVisibleP1}
                 />);
 
                 comboPathsDefense.push(<ComboTrackerPath key={idx + 1000}
@@ -180,6 +182,7 @@ const comboTracker = (props) => {
                                                          playerIdx={combo.playerIndex}
                                                          hitsTaken={hitsTaken}
                                                          didKill={combo.didKill}
+                                                         hitBubblesVisible={props.hitBubblesVisibleP2}
 
 
                 />);
@@ -190,6 +193,13 @@ const comboTracker = (props) => {
 
         // return {p1ComboPathsOffense, p2ComboPathsDefense, p2ComboPathsOffense, p1ComboPathsDefense};
         return {comboPathsOffense, comboPathsDefense};
+    }
+
+    const generateComboText = () => {
+         return props.combos.moves?.map((hit, idx) => {
+                return (<text x={640} y={40 * (idx + 1)}>{idx + 1}: {hit.move}: {hit.damage}%</text>);
+            }
+        )
     }
 
 
@@ -210,11 +220,12 @@ const comboTracker = (props) => {
         displayDefense = comboPathsDefense;
     }
 
-
+    const comboText = generateComboText();
     return (
         <g>
             {props.allCombos ? displayOffense : displayOffense[props.currentCombo]}
             {props.allCombos ? displayDefense : displayDefense[props.currentCombo]}
+            {/*{props.allCombos ? null : comboText[props.currentCombo]}*/}
         </g>
     );
 }

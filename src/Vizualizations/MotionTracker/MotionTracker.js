@@ -51,7 +51,9 @@ export default class motionTracker extends React.Component{
             zoomTransform: null,
             displayP1: true,
             displayP2: true,
-            allCombos: false
+            allCombos: true,
+            hitBubblesVisibleP1: false,
+            hitBubblesVisibleP2: false
         }
         this.zoom = d3.zoom()
             .scaleExtent([-5, 5])
@@ -87,40 +89,7 @@ export default class motionTracker extends React.Component{
         }
     }
 
-    pickTracker = () => {
-        switch (this.state.currentTracker) {
-            case "combos":
-                return (
-                    <ComboTracker
-                        stageId={this.props.stageId}
-                        combos={this.props.stats["combos"]}
-                        frameData={this.props.frameData}
-                        currentCombo={this.state.comboIndex}
-                        zoomTransform={this.state.zoomTransform}
-                        zoomType="scale"
-                        displayP1={this.state.displayP1}
-                        displayP2={this.state.displayP2}
-                        allCombos={this.state.allCombos}
-                    />
-                );
 
-            case "stocks":
-                return (
-                    <StockTracker
-                        stageId={this.props.stageId}
-                        stocks={this.props.stats["stocks"]}
-                        frameData={this.props.frameData}
-                        zoomTransform={this.state.zoomTransform}
-                        zoomType="scale"
-                        displayP1={this.state.displayP1}
-                        displayP2={this.state.displayP2}
-                    />
-                );
-            default:
-
-                break;
-        }
-    }
 
     switchToCombos = () => {this.setState({currentTracker: "combos"});}
 
@@ -168,6 +137,18 @@ export default class motionTracker extends React.Component{
         })
     }
 
+    hitBubblesToggleP1 = () => {
+        this.setState({
+            hitBubblesVisibleP1: !this.state.hitBubblesVisibleP1,
+        })
+    }
+
+    hitBubblesToggleP2 = () => {
+        this.setState({
+            hitBubblesVisibleP2: !this.state.hitBubblesVisibleP2,
+        })
+    }
+
     componentDidMount() {
         d3.select(this.refs.svg)
             .call(this.zoom)
@@ -183,6 +164,43 @@ export default class motionTracker extends React.Component{
     }
 
 
+
+    pickTracker = () => {
+        switch (this.state.currentTracker) {
+            case "combos":
+                return (
+                    <ComboTracker
+                        stageId={this.props.stageId}
+                        combos={this.props.stats["combos"]}
+                        frameData={this.props.frameData}
+                        currentCombo={this.state.comboIndex}
+                        zoomTransform={this.state.zoomTransform}
+                        zoomType="scale"
+                        displayP1={this.state.displayP1}
+                        displayP2={this.state.displayP2}
+                        allCombos={this.state.allCombos}
+                        hitBubblesVisibleP1={this.state.hitBubblesVisibleP1}
+                        hitBubblesVisibleP2={this.state.hitBubblesVisibleP2}
+                    />
+                );
+
+            case "stocks":
+                return (
+                    <StockTracker
+                        stageId={this.props.stageId}
+                        stocks={this.props.stats["stocks"]}
+                        frameData={this.props.frameData}
+                        zoomTransform={this.state.zoomTransform}
+                        zoomType="scale"
+                        displayP1={this.state.displayP1}
+                        displayP2={this.state.displayP2}
+                    />
+                );
+            default:
+
+                break;
+        }
+    }
 
     render() {
         const tracker = this.pickTracker();
@@ -202,17 +220,18 @@ export default class motionTracker extends React.Component{
                         {/*    height={props.height}/>*/}
 
                         {tracker}
+                        {/*STATS DISPLAY*/}
                     </svg>
                 </div>
 
                 <StageBackground stageId={this.props.stageId}/>
 
                 <ControlBar orientation={"horizontal"}>
-                    <ControlButton click={null}>Previous Game</ControlButton>
-                    <ControlButton click={null}>Next Game</ControlButton>
                     <ControlButton click={this.prevCombo}>Previous Combo</ControlButton>
                     <ControlButton click={this.nextCombo}>Next Combo</ControlButton>
-                    <ControlButton click={this.allCombos}>All Combos</ControlButton>
+                    <ControlButton click={this.allCombos}>All Combos Toggle</ControlButton>
+                    <ControlButton click={this.hitBubblesToggleP1}>Toggle Hit Bubbles P1</ControlButton>
+                    <ControlButton click={this.hitBubblesToggleP2}>Toggle Hit Bubbles P2</ControlButton>
                     <ControlButton click={this.p1PathToggle}>Toggle Player 1</ControlButton>
                     <ControlButton click={this.p2PathToggle}>Toggle Player 2</ControlButton>
                     <ControlButton click={this.switchToCombos}>Switch to Combos</ControlButton>
