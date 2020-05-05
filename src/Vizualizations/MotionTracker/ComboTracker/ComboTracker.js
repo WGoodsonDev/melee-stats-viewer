@@ -201,19 +201,20 @@ const comboTracker = (props) => {
     const {comboPathsOffense, comboPathsDefense} = makeComboPaths();
 
     // TODO: Conditionally return content based on props (button controls)
-
-    let toDisplay = [];
-    if(props.currentCombo < 0){
-        // Means we want to show all combos
-        toDisplay = [comboPathsOffense, comboPathsDefense];
-    } else {
-        toDisplay = [comboPathsOffense[props.currentCombo], comboPathsDefense[props.currentCombo]];
+    let displayOffense = comboPathsOffense.map(path => null);
+    let displayDefense = comboPathsOffense.map(path => null);
+    if(props.displayP1){
+        displayOffense = comboPathsOffense;
     }
+    if(props.displayP2){
+        displayDefense = comboPathsDefense;
+    }
+
 
     return (
         <g>
-            {toDisplay}
-
+            {props.allCombos ? displayOffense : displayOffense[props.currentCombo]}
+            {props.allCombos ? displayDefense : displayDefense[props.currentCombo]}
         </g>
     );
 }

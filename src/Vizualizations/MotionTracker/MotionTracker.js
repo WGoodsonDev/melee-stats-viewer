@@ -48,7 +48,10 @@ export default class motionTracker extends React.Component{
         this.state = {
             currentTracker: "combos",
             comboIndex: 0,
-            zoomTransform: null
+            zoomTransform: null,
+            displayP1: true,
+            displayP2: true,
+            allCombos: false
         }
         this.zoom = d3.zoom()
             .scaleExtent([-5, 5])
@@ -95,6 +98,9 @@ export default class motionTracker extends React.Component{
                         currentCombo={this.state.comboIndex}
                         zoomTransform={this.state.zoomTransform}
                         zoomType="scale"
+                        displayP1={this.state.displayP1}
+                        displayP2={this.state.displayP2}
+                        allCombos={this.state.allCombos}
                     />
                 );
 
@@ -106,6 +112,8 @@ export default class motionTracker extends React.Component{
                         frameData={this.props.frameData}
                         zoomTransform={this.state.zoomTransform}
                         zoomType="scale"
+                        displayP1={this.state.displayP1}
+                        displayP2={this.state.displayP2}
                     />
                 );
             default:
@@ -143,12 +151,20 @@ export default class motionTracker extends React.Component{
     }
 
     allCombos = () => {
-        let newIndex = 0;
-        if(this.state.comboIndex !== -1){
-            newIndex = -1;
-        }
         this.setState({
-            comboIndex: newIndex
+            allCombos: !this.state.allCombos
+        })
+    }
+
+    p1PathToggle = () => {
+        this.setState({
+            displayP1: !this.state.displayP1,
+        })
+    }
+
+    p2PathToggle = () => {
+        this.setState({
+            displayP2: !this.state.displayP2,
         })
     }
 
@@ -196,9 +212,9 @@ export default class motionTracker extends React.Component{
                     <ControlButton click={null}>Next Game</ControlButton>
                     <ControlButton click={this.prevCombo}>Previous Combo</ControlButton>
                     <ControlButton click={this.nextCombo}>Next Combo</ControlButton>
-                    <ControlButton click={null}>All Combos</ControlButton>
-                    <ControlButton click={null}>Offensive Path</ControlButton>
-                    <ControlButton click={null}>Defensive Path</ControlButton>
+                    <ControlButton click={this.allCombos}>All Combos</ControlButton>
+                    <ControlButton click={this.p1PathToggle}>Toggle Player 1</ControlButton>
+                    <ControlButton click={this.p2PathToggle}>Toggle Player 2</ControlButton>
                     <ControlButton click={this.switchToCombos}>Switch to Combos</ControlButton>
                     <ControlButton click={this.switchToStocks}>Switch to Stocks</ControlButton>
                 </ControlBar>

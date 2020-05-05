@@ -144,8 +144,8 @@ const stockTracker = (props) => {
 
     return (
         <g>
-            {p1StockPaths}
-            {p2StockPaths}
+            {props.displayP1 ? p1StockPaths : null}
+            {props.displayP2 ? p2StockPaths : null}
         </g>
 
     );
