@@ -37,16 +37,26 @@ import ControlBar from "./ControlBar/ControlBar";
 import styles from './MotionTracker.module.css';
 
 import playerPositions from "../../DataHandling/playerPositions.csv";
+import ControlButton from "./ControlButtons/ControlButtonBase/ControlButton";
 
 
 
 
 export default class motionTracker extends React.Component{
-
-    state = {
-        currentTracker: "combos",
-        comboIndex: 0
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentTracker: "combos",
+            comboIndex: 0,
+            zoomTransform: null
+        }
+        this.zoom = d3.zoom()
+            .scaleExtent([-5, 5])
+            .translateExtent([[-100, -100], [this.props.width+100, this.props.height+100]])
+            .extent([[-100, -100], [this.props.width+100, this.props.height+100]])
+            .on("zoom", this.zoomed.bind(this));
     }
+
     svgProportions = {
         0: {
             xDim: 857.04,
@@ -82,6 +92,9 @@ export default class motionTracker extends React.Component{
                         stageId={this.props.stageId}
                         combos={this.props.stats["combos"]}
                         frameData={this.props.frameData}
+                        currentCombo={this.state.comboIndex}
+                        zoomTransform={this.state.zoomTransform}
+                        zoomType="scale"
                     />
                 );
 
@@ -91,6 +104,8 @@ export default class motionTracker extends React.Component{
                         stageId={this.props.stageId}
                         stocks={this.props.stats["stocks"]}
                         frameData={this.props.frameData}
+                        zoomTransform={this.state.zoomTransform}
+                        zoomType="scale"
                     />
                 );
             default:
@@ -99,13 +114,58 @@ export default class motionTracker extends React.Component{
         }
     }
 
-    switchToCombos = () => {
-        this.setState({currentTracker: "combos"});
+    switchToCombos = () => {this.setState({currentTracker: "combos"});}
+
+    switchToStocks = () => {this.setState({currentTracker: "stocks"});}
+
+    nextCombo = () => {
+        let newIndex = 0;
+        if(this.state.comboIndex >= this.props.stats["combos"].length){
+            newIndex = this.props.stats["combos"].length - 1;
+        } else {
+            newIndex = this.state.comboIndex + 1;
+        }
+        this.setState({
+            comboIndex: newIndex
+        }
+    )}
+
+    prevCombo = () => {
+        let newIndex = 0;
+        if(this.state.comboIndex <= 0){
+            newIndex = 0;
+        } else {
+            newIndex = this.state.comboIndex - 1;
+        }
+        this.setState({
+            comboIndex: newIndex
+        })
     }
 
-    switchToStocks = () => {
-        this.setState({currentTracker: "stocks"});
+    allCombos = () => {
+        let newIndex = 0;
+        if(this.state.comboIndex !== -1){
+            newIndex = -1;
+        }
+        this.setState({
+            comboIndex: newIndex
+        })
     }
+
+    componentDidMount() {
+        d3.select(this.refs.svg)
+            .call(this.zoom)
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        d3.select(this.refs.svg)
+            .call(this.zoom)
+    }
+    zoomed() {
+        this.setState({
+            zoomTransform: d3.event.transform
+        })
+    }
+
 
 
     render() {
@@ -119,6 +179,7 @@ export default class motionTracker extends React.Component{
                     <svg width={this.svgProportions[this.props.stageId].xDim}
                          height={this.svgProportions[this.props.stageId].yDim}
                          fontWeight={"bold"}
+                         ref={"svg"}
                     >
                         {/*<DebugAxes*/}
                         {/*    width={props.width}*/}
@@ -129,6 +190,18 @@ export default class motionTracker extends React.Component{
                 </div>
 
                 <StageBackground stageId={this.props.stageId}/>
+
+                <ControlBar orientation={"horizontal"}>
+                    <ControlButton click={null}>Previous Game</ControlButton>
+                    <ControlButton click={null}>Next Game</ControlButton>
+                    <ControlButton click={this.prevCombo}>Previous Combo</ControlButton>
+                    <ControlButton click={this.nextCombo}>Next Combo</ControlButton>
+                    <ControlButton click={null}>All Combos</ControlButton>
+                    <ControlButton click={null}>Offensive Path</ControlButton>
+                    <ControlButton click={null}>Defensive Path</ControlButton>
+                    <ControlButton click={this.switchToCombos}>Switch to Combos</ControlButton>
+                    <ControlButton click={this.switchToStocks}>Switch to Stocks</ControlButton>
+                </ControlBar>
 
 
                 {/*<CombosButton click={this.switchToCombos}/>*/}

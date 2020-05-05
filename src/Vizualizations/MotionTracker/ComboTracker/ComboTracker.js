@@ -12,7 +12,7 @@ import attackTable from '../../../DataHandling/AttackTable';
 
 const comboTracker = (props) => {
     const minComboLength = 3;
-    const currentCombo = 1;
+    const currentCombo = 4;
 
     const stageDimensions = {
         0: {
@@ -200,10 +200,19 @@ const comboTracker = (props) => {
 
     const {comboPathsOffense, comboPathsDefense} = makeComboPaths();
 
+    // TODO: Conditionally return content based on props (button controls)
+
+    let toDisplay = [];
+    if(props.currentCombo < 0){
+        // Means we want to show all combos
+        toDisplay = [comboPathsOffense, comboPathsDefense];
+    } else {
+        toDisplay = [comboPathsOffense[props.currentCombo], comboPathsDefense[props.currentCombo]];
+    }
+
     return (
         <g>
-            {comboPathsOffense[currentCombo]}
-            {comboPathsDefense[currentCombo]}
+            {toDisplay}
 
         </g>
     );

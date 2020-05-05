@@ -5,12 +5,13 @@
     height: 100%;
     width: 120px;
     background-color: #85a392;
-    color: #f5b971;
+    color: #ffecc7;
     text-align: center;
+    user-select: none;
 }
 
 .ControlButton:hover {
     color: #ffecc7;
-    background-color: #5ea173;
+    background-color: #a9c6b5;
     cursor: pointer;
 }

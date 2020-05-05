@@ -9,7 +9,7 @@ import styles from './VizContainer.module.css';
 import MotionTracker from "../MotionTracker/MotionTracker";
 
 // DATA SOURCES
-import allData from '../../DataHandling/scripts/json/Game_20181210T225909.json';
+import allData from '../../DataHandling/scripts/json/Game_20190118T212023.json';
 import ControlBar from "../MotionTracker/ControlBar/ControlBar";
 import ControlButton from '../MotionTracker/ControlButtons/ControlButtonBase/ControlButton';
 
@@ -104,17 +104,7 @@ export default class VizContainer extends React.Component {
 
                 />}
 
-                <ControlBar orientation={"horizontal"}>
-                    <ControlButton>Previous Combo</ControlButton>
-                    <ControlButton>Next Combo</ControlButton>
-                    <ControlButton>Previous Game</ControlButton>
-                    <ControlButton>Next Game</ControlButton>
-                    <ControlButton>Placeholder</ControlButton>
-                    <ControlButton>Placeholder</ControlButton>
-                    <ControlButton>Placeholder</ControlButton>
-                    <ControlButton>Placeholder</ControlButton>
 
-                </ControlBar>
             </div>
         );
     }

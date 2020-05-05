@@ -8,7 +8,7 @@ import styles from './ControlButton.module.css';
 const controlButton = (props) => {
 
     return (
-        <div className={styles.ControlButton}>
+        <div onClick={props.click} className={styles.ControlButton}>
             {props.children}
         </div>
     );
