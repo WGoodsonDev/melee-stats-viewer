@@ -4,14 +4,9 @@
 import React from 'react';
 
 import styles from './StockTracker.module.css';
-import ComboTrackerPath from "../ComboTrackerPath/ComboTrackerPath";
+import StockTrackerPath from "../StockTrackerPath/StockTrackerPath";
 import * as d3 from "d3";
-import yoshis from "../../../Assets/stages/png/yoshis_downscaled_648.png";
-import fountain from "../../../Assets/stages/png/fountain_downscaled_648.png";
-import stadium from "../../../Assets/stages/png/stadium_downscaled_648.png";
-import battlefield from "../../../Assets/stages/png/battlefield_downscaled_648.png";
-import FD from "../../../Assets/stages/png/FD_downscaled_648.png";
-import dreamland from "../../../Assets/stages/png/dreamland_downscaled_648.png";
+
 
 const stockTracker = (props) => {
 
@@ -130,9 +125,9 @@ const stockTracker = (props) => {
         stockArray.forEach((stock, idx) => {
             const stockSlice = positionData.slice(stock.startFrame, stock.endFrame);
             if (stock.playerIndex === p1Index) {
-                p1StockPaths.push(<ComboTrackerPath key={idx} d={p1Line(stockSlice)} color={p1ColorScale(idx)}/>);
+                p1StockPaths.push(<StockTrackerPath key={idx} d={p1Line(stockSlice)} color={p1ColorScale(idx)}/>);
             } else {
-                p2StockPaths.push(<ComboTrackerPath key={idx} d={p2Line(stockSlice)} color={p2ColorScale(idx)}/>);
+                p2StockPaths.push(<StockTrackerPath key={idx} d={p2Line(stockSlice)} color={p2ColorScale(idx)}/>);
             }
         });
         return [p1StockPaths, p2StockPaths];

@@ -2,9 +2,8 @@
     Created by Warren Goodson
 */
 import React from 'react';
-import ComboHit from "./ComboHit/ComboHit";
 
-export default class ComboTrackerPath extends React.Component{
+export default class StockTrackerPath extends React.Component{
     constructor(props) {
         super(props);
         this.onMouseMove = this.onMouseMove.bind(this);
@@ -49,7 +48,7 @@ export default class ComboTrackerPath extends React.Component{
         } else if (this.props.hitsTaken){
             return this.props.hitsTaken.map((hit, idx) => {
                 return null;
-                    // <text x={640} y={40 * (idx + 1)}>{idx + 1}: {hit.move}: {hit.damage}%</text>
+                // <text x={640} y={40 * (idx + 1)}>{idx + 1}: {hit.move}: {hit.damage}%</text>
 
             })
         }
@@ -74,8 +73,8 @@ export default class ComboTrackerPath extends React.Component{
                 <foreignObject x={400} y={15} width={160} height={120}>
                     {this.state.tooltipOpen ?
                         <div className={"tooltip"}>
-                            <p>Combo length: {this.props.comboLength}</p>
-                            <p>{this.props.didKill?` Combo did kill`:`Combo did not kill`}</p>
+                            <p></p>
+                            <p></p>
                         </div> : null
                     }
 

@@ -199,6 +199,8 @@ export default class motionTracker extends React.Component{
                         allCombos={this.state.allCombos}
                         hitBubblesVisibleP1={this.state.hitBubblesVisibleP1}
                         hitBubblesVisibleP2={this.state.hitBubblesVisibleP2}
+                        p1Character={this.state.player1Character}
+                        p2Character={this.state.player2Character}
                     />
                 );
 
