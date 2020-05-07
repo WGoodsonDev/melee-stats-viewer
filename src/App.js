@@ -15,7 +15,7 @@ const App = (props) => {
         <BrowserRouter>
             <div className={"App"}>
                 <Route path={"/"} exact component={LandingPage}/>
-                <Route path={"/motion_tracker"} exact component={Layout}/>
+                <Route path={"/combo-tracker"} exact component={Layout}/>
 
             </div>
         </BrowserRouter>

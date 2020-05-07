@@ -6,6 +6,7 @@
 .svgContainer {
     position: relative;
     z-index: 1000;
+    border: 1px solid gray;
 }
 
 .svgContainer button {

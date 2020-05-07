@@ -9,7 +9,7 @@ import styles from './VizContainer.module.css';
 import MotionTracker from "../MotionTracker/MotionTracker";
 
 
-import allData from '../../DataHandling/scripts/json/Game_20190107T000750.json';
+import allData from '../../DataHandling/scripts/json/Game_20181228T001857.json';
 
 
 
