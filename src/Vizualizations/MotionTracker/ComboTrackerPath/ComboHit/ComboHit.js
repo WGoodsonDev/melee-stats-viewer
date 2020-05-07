@@ -39,6 +39,7 @@ export default class ComboHit extends React.Component {
     render() {
         return (
             <g>
+                <text x={this.props.hit.x} y={this.props.hit.y + 5} fontSize={"smaller"} textAnchor={"middle"}>{this.props.hitNo}</text>
                 <circle cx={this.props.hit.x} cy={this.props.hit.y}
                         r={this.state.r}
                         strokeWidth={"5"}
@@ -49,7 +50,7 @@ export default class ComboHit extends React.Component {
                         onMouseLeave={this.unhighlight}
                 >
                 </circle>
-                <text x={this.props.hit.x} y={this.props.hit.y + 5} fontSize={"smaller"} textAnchor={"middle"}>{this.props.hitNo}</text>
+
                 <foreignObject x={this.props.textX} y={20} width={160} height={120}>
                     {this.state.tooltipOpen ?
                         <div className={"tooltip"}>

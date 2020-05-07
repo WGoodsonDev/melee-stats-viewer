@@ -125,9 +125,9 @@ const stockTracker = (props) => {
         stockArray.forEach((stock, idx) => {
             const stockSlice = positionData.slice(stock.startFrame, stock.endFrame);
             if (stock.playerIndex === p1Index) {
-                p1StockPaths.push(<StockTrackerPath stockData={stock} key={idx} d={p1Line(stockSlice)} color={p1ColorScale(idx)}/>);
+                p1StockPaths.push(<StockTrackerPath stockData={stock} key={idx} d={p1Line(stockSlice)} color={p1ColorScale(idx)} textX={(props.svgWidth / 2) - 80 }/>);
             } else {
-                p2StockPaths.push(<StockTrackerPath stockData={stock} key={idx} d={p2Line(stockSlice)} color={p2ColorScale(idx)}/>);
+                p2StockPaths.push(<StockTrackerPath stockData={stock} key={idx} d={p2Line(stockSlice)} color={p2ColorScale(idx)} textX={(props.svgWidth / 2) - 80 }/>);
             }
         });
         return {p1StockPaths, p2StockPaths};

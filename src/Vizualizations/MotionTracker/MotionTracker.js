@@ -57,7 +57,8 @@ export default class motionTracker extends React.Component{
             displayP2: true,
             allCombos: false,
             hitBubblesVisibleOffense: true,
-            hitBubblesVisibleDefense: true
+            hitBubblesVisibleDefense: true,
+            minComboLength: 3,
         }
     }
 
@@ -129,18 +130,6 @@ export default class motionTracker extends React.Component{
 
     switchToStocks = () => {this.setState({currentTracker: "stocks"});}
 
-    nextCombo = () => {
-        let newIndex = 0;
-        if(this.state.comboIndex >= this.props.stats.combos.length - 1){
-            newIndex = this.props.stats.combos.length - 1;
-        } else {
-            newIndex = this.state.comboIndex + 1;
-        }
-        this.setState({
-            comboIndex: newIndex
-        }
-    )}
-
     prevCombo = () => {
         let newIndex = 0;
         if(this.state.comboIndex <= 0){
@@ -152,6 +141,19 @@ export default class motionTracker extends React.Component{
             comboIndex: newIndex
         })
     }
+
+    nextCombo = () => {
+        console.log(this.props.stats.combos);
+        let newIndex = 0;
+        if(this.state.comboIndex >= this.state.comboCount - 1){
+            newIndex = this.state.comboCount - 1;
+        } else {
+            newIndex = this.state.comboIndex + 1;
+        }
+        this.setState({
+            comboIndex: newIndex
+        }
+    )}
 
     allCombos = () => {
         this.setState({
@@ -185,6 +187,7 @@ export default class motionTracker extends React.Component{
 
 
 
+
     pickTracker = () => {
         const svgWidth = this.svgProportions[this.props.stageId].xDim;
         const svgHeight = this.svgProportions[this.props.stageId].yDim;
@@ -205,6 +208,7 @@ export default class motionTracker extends React.Component{
                         p2Character={this.state.player2Character}
                         svgWidth={svgWidth}
                         svgHeight={svgHeight}
+                        minComboLength={this.state.minComboLength}
                     />
                 );
 
@@ -264,8 +268,8 @@ export default class motionTracker extends React.Component{
                     <ControlButton click={this.hitBubblesToggleP2}>Toggle Hit Bubbles P2</ControlButton>
                     <ControlButton click={this.p1PathToggle}>Toggle Player 1</ControlButton>
                     <ControlButton click={this.p2PathToggle}>Toggle Player 2</ControlButton>
-                    <ControlButton click={this.switchToCombos}>Switch to Combos</ControlButton>
-                    <ControlButton click={this.switchToStocks}>Switch to Stocks</ControlButton>
+                    {/*<ControlButton click={this.switchToCombos}>Switch to Combos</ControlButton>*/}
+                    {/*<ControlButton click={this.switchToStocks}>Switch to Stocks</ControlButton>*/}
                 </ControlBar>
             </div>
         );

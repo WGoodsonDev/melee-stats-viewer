@@ -70,11 +70,12 @@ export default class StockTrackerPath extends React.Component{
                       opacity={"0.7"}
                       filter={"drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))"}
                 />
-                <foreignObject x={400} y={15} width={160} height={120}>
+                <foreignObject x={this.props.textX} y={8} width={160} height={120}>
                     {this.state.tooltipOpen ?
                         <div className={"tooltip"}>
-                            <p>{this.props.stockData.endPercent.toPrecision(3)}</p>
-                            <p></p>
+                            <p>Stock #{-(this.props.stockData.count - 4) + 1}</p>
+                            <p>Died at: {this.props.stockData.endPercent.toPrecision(3)}%</p>
+
                         </div> : null
                     }
 

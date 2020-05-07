@@ -8,10 +8,9 @@ import styles from './VizContainer.module.css';
 
 import MotionTracker from "../MotionTracker/MotionTracker";
 
-// DATA SOURCES
-import allData from '../../DataHandling/scripts/json/Game_20181114T230445.json';
-import ControlBar from "../MotionTracker/ControlBar/ControlBar";
-import ControlButton from '../MotionTracker/ControlButtons/ControlButtonBase/ControlButton';
+
+import allData from '../../DataHandling/scripts/json/Game_20190118T212551.json';
+
 
 
 export default class VizContainer extends React.Component {

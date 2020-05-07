@@ -12,7 +12,6 @@ import ComboHit from "../ComboTrackerPath/ComboHit/ComboHit";
 
 
 const comboTracker = (props) => {
-    const minComboLength = 3;
 
     const stageDimensions = {
         0: {
@@ -96,11 +95,11 @@ const comboTracker = (props) => {
         .y(d => yScale(d.player2Y));
 
     const p1ComboColorScale = d3.scaleLinear()
-        .domain([0, 20])
+        .domain([10, 100])
         .range(["purple", "cyan"])
 
     const p2ComboColorScale = d3.scaleLinear()
-        .domain([0, 20])
+        .domain([10, 100])
         .range(["yellow", "red"])
 
 
@@ -132,7 +131,7 @@ const comboTracker = (props) => {
 
             const comboSlice = positionData.slice(combo.startFrame, combo.endFrame);
 
-            if (combo.moves.length >= minComboLength) {
+            if (combo.moves.length >= props.minComboLength) {
                 comboHitsOffense = combo.moves.map((move) => {
                     return {
                         "frame": move.frame,
@@ -162,35 +161,38 @@ const comboTracker = (props) => {
                 comboPathsOffense.push(<ComboTrackerPath key={idx}
                                                          currentCombo={props.currentCombo}
                                                          d={p1Line(comboSlice)}
-                                                         color={p1ComboColorScale(idx)}
+                                                         color={p1ComboColorScale(combo.endPercent - combo.startPercent)}
                                                          comboLength={combo.moves.length}
                                                          playerIdx={combo.playerIndex}
                                                          comboHits={comboHitsOffense}
                                                          didKill={combo.didKill}
                                                          allCombos={props.allCombos}
                                                          textX={combo.playerIndex < combo.opponentIndex ? 10 : props.svgWidth - 200}
+                                                         totalDmg={(combo.endPercent - combo.startPercent).toPrecision(3)}
                 />);
                 comboPathsDefense.push(<ComboTrackerPath key={idx + 1000}
                                                          currentCombo={props.currentCombo}
                                                          d={p2Line(comboSlice)}
-                                                         color={p2ComboColorScale(idx)}
+                                                         color={p2ComboColorScale(combo.endPercent - combo.startPercent)}
                                                          comboLength={combo.moves.length}
                                                          playerIdx={combo.playerIndex}
                                                          hitsTaken={comboHitsDefense}
                                                          didKill={combo.didKill}
                                                          allCombos={props.allCombos}
+                                                         textX={combo.playerIndex < combo.opponentIndex ? 10 : props.svgWidth - 200}
+                                                         totalDmg={(combo.endPercent - combo.startPercent).toPrecision(3)}
                 />);
 
 
 
                 comboBubblesOffense.push(comboHitsOffense.map((hit, index) => {
                     return (
-                        <ComboHit hit={hit} color={p1ComboColorScale(idx)} key={index} hitNo={index + 1} textX={hit.playerIdx < hit.opponentIdx ? 0 : props.svgWidth - 220}/>
+                        <ComboHit hit={hit} color={p1ComboColorScale(combo.endPercent - combo.startPercent)} key={index} hitNo={index + 1} textX={hit.playerIdx >= hit.opponentIdx ? 0 : props.svgWidth - 220}/>
                     )
                 }))
                 comboBubblesDefense.push(comboHitsDefense.map((hit, index) => {
                     return (
-                        <ComboHit hit={hit} color={p2ComboColorScale(idx)} key={index + 1000} hitNo={index + 1} textX={hit.playerIdx < hit.opponentIdx ? 0 : props.svgWidth - 220}/>
+                        <ComboHit hit={hit} color={p2ComboColorScale(combo.endPercent - combo.startPercent)} key={index + 1000} hitNo={index + 1} textX={hit.playerIdx >= hit.opponentIdx ? 0 : props.svgWidth - 220}/>
                     )
                 }))
             }
@@ -209,13 +211,14 @@ const comboTracker = (props) => {
 
     const {comboPathsOffense, comboPathsDefense, comboBubblesOffense, comboBubblesDefense} = makeComboPaths();
 
+
     // Conditionally return content based on props (button controls)
     let displayOffense = [];
     let displayDefense = [];
-    if (props.displayP1) {
+    if (props.displayP2) {
         displayOffense = comboPathsOffense;
     }
-    if (props.displayP2) {
+    if (props.displayP1) {
         displayDefense = comboPathsDefense;
     }
 
