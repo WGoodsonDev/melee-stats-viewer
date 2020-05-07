@@ -235,16 +235,16 @@ export default class motionTracker extends React.Component{
         this.setState({transformMatrix: transformMatrix})
     }
     panUp = () => {
-        this.pan(0, -20);
-    }
-    panDown = () => {
         this.pan(0, 20);
     }
+    panDown = () => {
+        this.pan(0, -20);
+    }
     panLeft = () => {
-        this.pan(-20, 0);
+        this.pan(20, 0);
     }
     panRight = () => {
-        this.pan(20, 0);
+        this.pan(-20, 0);
     }
 
     resetPanZoom = () => {
