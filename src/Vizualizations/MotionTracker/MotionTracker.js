@@ -144,9 +144,14 @@ export default class motionTracker extends React.Component{
 
     nextCombo = () => {
         console.log(this.props.stats.combos);
+        let comboCount = 0;
+        this.props.stats.combos.forEach(combo => {
+            if(combo.moves.length >= this.state.minComboLength)
+                comboCount++;
+        });
         let newIndex = 0;
-        if(this.state.comboIndex >= this.state.comboCount - 1){
-            newIndex = this.state.comboCount - 1;
+        if(this.state.comboIndex >=  comboCount - 1){
+            newIndex = comboCount - 1;
         } else {
             newIndex = this.state.comboIndex + 1;
         }
