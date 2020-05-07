@@ -1,5 +1,5 @@
 .wrapper {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     padding: 100px;
     text-align: center;
 }
@@ -11,8 +11,10 @@
     padding: 20px;
     background-color: #f5b971;
     text-decoration: none;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     transition: background-color .15s;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .EnterButton:hover{

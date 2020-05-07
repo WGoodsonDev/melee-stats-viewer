@@ -12,12 +12,13 @@ const landingPage = (props) => {
     return (
         <div className={styles.LandingPage}>
             <div className={styles.MainText}>
-                <h1>Warren Goodson</h1>
-                <h1>This is even more text</h1>
-                <h1>And this text is about me</h1>
+                <h1>Slippi Combo Viewer</h1>
+            </div>
+            <div>
+                <h3>by Warren Goodson</h3>
             </div>
             <div className={styles.Subtitle}>
-                <h4>Built using React, D3, and slippi-parser-js</h4>
+                <h4>Built using React.js, D3.js, and slippi-parser-js</h4>
             </div>
 
             <EnterButton/>

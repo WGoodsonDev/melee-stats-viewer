@@ -1,6 +1,8 @@
 .Icon {
     width: 250px;
-    transform: translate(25px, 15vh);
-    border-radius: 50px;
+    padding: 15px;
+    transform: translate(10px, 7vh);
     text-align: center;
+    background-color: #85a392;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, .7));
 }

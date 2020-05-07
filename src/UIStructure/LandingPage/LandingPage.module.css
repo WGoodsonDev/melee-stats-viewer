@@ -2,7 +2,7 @@
     position: fixed;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
     background-color: #85a392;
@@ -10,12 +10,12 @@
 }
 
 .MainText {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     padding: 50px;
 }
 
 .Subtitle {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     padding: 50px;
 
 }
