@@ -27,5 +27,10 @@ yarn-error.log*
 *.slp
 *.csv
 
+/.firebaserc
+/.firebase
+/database.rules.json
+/firebase.json
+
 
 /src/DataHandling/scripts/game_files/
