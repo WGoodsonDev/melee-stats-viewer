@@ -56,8 +56,8 @@ export default class motionTracker extends React.Component{
             displayP1: true,
             displayP2: true,
             allCombos: true,
-            hitBubblesVisibleP1: true,
-            hitBubblesVisibleP2: true
+            hitBubblesVisibleOffense: true,
+            hitBubblesVisibleDefense: true
         }
     }
 
@@ -173,13 +173,13 @@ export default class motionTracker extends React.Component{
 
     hitBubblesToggleP1 = () => {
         this.setState({
-            hitBubblesVisibleP1: !this.state.hitBubblesVisibleP1,
+            hitBubblesVisibleOffense: !this.state.hitBubblesVisibleOffense,
         })
     }
 
     hitBubblesToggleP2 = () => {
         this.setState({
-            hitBubblesVisibleP2: !this.state.hitBubblesVisibleP2,
+            hitBubblesVisibleDefense: !this.state.hitBubblesVisibleDefense,
         })
     }
 
@@ -197,8 +197,8 @@ export default class motionTracker extends React.Component{
                         displayP1={this.state.displayP1}
                         displayP2={this.state.displayP2}
                         allCombos={this.state.allCombos}
-                        hitBubblesVisibleP1={this.state.hitBubblesVisibleP1}
-                        hitBubblesVisibleP2={this.state.hitBubblesVisibleP2}
+                        hitBubblesVisibleOffense={this.state.hitBubblesVisibleOffense}
+                        hitBubblesVisibleDefense={this.state.hitBubblesVisibleDefense}
                         p1Character={this.state.player1Character}
                         p2Character={this.state.player2Character}
                     />

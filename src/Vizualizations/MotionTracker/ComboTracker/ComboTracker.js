@@ -113,6 +113,9 @@ const comboTracker = (props) => {
         let comboHitsOffense = [];
         let comboHitsDefense = [];
 
+        let comboBubblesOffense = [];
+        let comboBubblesDefense = [];
+
         const positionData = props.frameData.map(frame => {
             return {
                 "player1X": frame.player1.PreX,
@@ -121,8 +124,15 @@ const comboTracker = (props) => {
                 "player2Y": frame.player2.PreY,
             }
         })
+
+        // For each individual combo, do:
+        //      make comboSlice: positional data from beginning of combo to end
+        //      if this combo's length is above the threshold:
+        //
         props.combos.forEach( (combo, idx) => {
+
             const comboSlice = positionData.slice(combo.startFrame, combo.endFrame);
+
             if (combo.moves.length >= minComboLength) {
                 comboHitsOffense = combo.moves.map((move) => {
                     return {
@@ -132,7 +142,9 @@ const comboTracker = (props) => {
                         "y": yScale(positionData[move.frame].player1Y),
                         "hitCount": move.hitCount,
                         "damage": move.damage.toPrecision(2),
-                        "character": props.frameData[0]["player1"].Character
+                        "character": props.frameData[0]["player1"].Character,
+                        "playerIdx": combo.playerIndex,
+                        "opponentIdx": combo.opponentIndex
                     };
                 });
                 comboHitsDefense = combo.moves.map((move) => {
@@ -143,7 +155,9 @@ const comboTracker = (props) => {
                         "y": yScale(positionData[move.frame].player2Y),
                         "hitCount": move.hitCount,
                         "damage": move.damage.toPrecision(2),
-                        "character": props.frameData[0]["player2"].Character
+                        "character": props.frameData[0]["player2"].Character,
+                        "playerIdx": combo.opponentIndex,
+                        "opponentIdx": combo.playerIndex
                     };
                 });
                 comboPathsOffense.push(<ComboTrackerPath key={idx}
@@ -167,22 +181,23 @@ const comboTracker = (props) => {
                                                          didKill={combo.didKill}
                                                          allCombos={props.allCombos}
                 />);
+
+
+
+                comboBubblesOffense.push(comboHitsOffense.map((hit, idx) => {
+                    return (
+                        <ComboHit hit={hit} color={p1ComboColorScale(idx)} key={idx} hitNo={idx + 1} textX={hit.playerIdx < hit.opponentIdx ? 10 : 760}/>
+                    )
+                }))
+                comboBubblesDefense.push(comboHitsDefense.map((hit, idx) => {
+                    return (
+                        <ComboHit hit={hit} color={p2ComboColorScale(idx)} key={idx + 1000} hitNo={idx + 1} textX={hit.playerIdx < hit.opponentIdx ? 10 : 760}/>
+                    )
+                }))
             }
         });
 
-        let comboBubblesOffense = [];
-        let comboBubblesDefense = [];
 
-        comboBubblesOffense = comboHitsOffense.map((hit, idx) => {
-            return (
-                <ComboHit character={hit.character} hit={hit} color={p1ComboColorScale(idx)} key={idx} hitNo={idx + 1}/>
-            )
-        })
-        comboBubblesDefense = comboHitsDefense.map((hit, idx) => {
-            return (
-                <ComboHit character={hit.character} hit={hit} color={p2ComboColorScale(idx)} key={idx + 1000} hitNo={idx + 1}/>
-            )
-        })
 
         return {comboPathsOffense, comboPathsDefense, comboBubblesOffense, comboBubblesDefense};
     }
@@ -205,14 +220,21 @@ const comboTracker = (props) => {
         displayDefense = comboPathsDefense;
     }
 
+    let bubblesVisibleOffense = props.hitBubblesVisibleOffense;
+    let bubblesVisibleDefense = props.hitBubblesVisibleDefense;
+    if(props.allCombos){
+        bubblesVisibleOffense = false;
+        bubblesVisibleDefense = false;
+    }
+
 
     return (
         <g>
             {props.allCombos ? displayOffense : displayOffense[props.currentCombo]}
             {props.allCombos ? displayDefense : displayDefense[props.currentCombo]}
             {/*{props.allCombos ? null : comboText[props.currentCombo]}*/}
-            {props.hitBubblesVisibleP1 ? comboBubblesOffense : null }
-            {props.hitBubblesVisibleP2 ? comboBubblesDefense : null }
+            {bubblesVisibleOffense ? comboBubblesOffense[props.currentCombo] : null }
+            {bubblesVisibleDefense ? comboBubblesDefense[props.currentCombo] : null }
         </g>
     );
 
