@@ -58,7 +58,7 @@ export default class motionTracker extends React.Component{
             allCombos: false,
             hitBubblesVisibleOffense: true,
             hitBubblesVisibleDefense: true,
-            minComboLength: 3,
+            minComboLength: 1,
         }
     }
 
@@ -190,6 +190,10 @@ export default class motionTracker extends React.Component{
         })
     }
 
+    handleMinComboLengthChange = (event) => {
+        this.setState({minComboLength: event.target.value});
+    }
+
 
 
 
@@ -273,6 +277,9 @@ export default class motionTracker extends React.Component{
                     <ControlButton click={this.p2PathToggle}>Toggle Player 2</ControlButton>
                     <ControlButton click={this.hitBubblesToggleP1}>Toggle Hit Bubbles P1</ControlButton>
                     <ControlButton click={this.hitBubblesToggleP2}>Toggle Hit Bubbles P2</ControlButton>
+                    <ControlButton click={null}>Min Combo Length:
+                        <input type="number" value={this.state.minComboLength} onChange={this.handleMinComboLengthChange}/>
+                    </ControlButton>
                     {/*<ControlButton click={this.switchToCombos}>Switch to Combos</ControlButton>*/}
                     {/*<ControlButton click={this.switchToStocks}>Switch to Stocks</ControlButton>*/}
                 </ControlBar>
