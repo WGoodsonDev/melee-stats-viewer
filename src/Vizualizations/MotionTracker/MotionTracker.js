@@ -108,7 +108,7 @@ export default class motionTracker extends React.Component{
         15 : "Jigglypuff",
         16 : "Samus",
         17 : "Yoshi",
-        18 : "Zelda",
+        18 : "Sheik",
         19: "Sheik",
         20 : "Falco",
         21 : "Young Link",
@@ -269,10 +269,10 @@ export default class motionTracker extends React.Component{
                     <ControlButton click={this.prevCombo}>Previous Combo</ControlButton>
                     <ControlButton click={this.nextCombo}>Next Combo</ControlButton>
                     <ControlButton click={this.allCombos}>Toggle Single Combo / All Combos</ControlButton>
-                    <ControlButton click={this.hitBubblesToggleP1}>Toggle Hit Bubbles P1</ControlButton>
-                    <ControlButton click={this.hitBubblesToggleP2}>Toggle Hit Bubbles P2</ControlButton>
                     <ControlButton click={this.p1PathToggle}>Toggle Player 1</ControlButton>
                     <ControlButton click={this.p2PathToggle}>Toggle Player 2</ControlButton>
+                    <ControlButton click={this.hitBubblesToggleP1}>Toggle Hit Bubbles P1</ControlButton>
+                    <ControlButton click={this.hitBubblesToggleP2}>Toggle Hit Bubbles P2</ControlButton>
                     {/*<ControlButton click={this.switchToCombos}>Switch to Combos</ControlButton>*/}
                     {/*<ControlButton click={this.switchToStocks}>Switch to Stocks</ControlButton>*/}
                 </ControlBar>

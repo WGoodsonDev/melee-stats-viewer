@@ -51,7 +51,7 @@ export default class ComboHit extends React.Component {
                 >
                 </circle>
 
-                <foreignObject x={this.props.textX} y={20} width={160} height={120}>
+                <foreignObject x={this.props.textX} y={420} width={160} height={120}>
                     {this.state.tooltipOpen ?
                         <div className={"tooltip"}>
                             <p>{this.props.hit.move}</p>

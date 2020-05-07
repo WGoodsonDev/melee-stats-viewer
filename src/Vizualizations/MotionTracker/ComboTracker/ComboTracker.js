@@ -167,8 +167,9 @@ const comboTracker = (props) => {
                                                          comboHits={comboHitsOffense}
                                                          didKill={combo.didKill}
                                                          allCombos={props.allCombos}
-                                                         textX={combo.playerIndex < combo.opponentIndex ? 10 : props.svgWidth - 200}
-                                                         totalDmg={(combo.endPercent - combo.startPercent).toPrecision(3)}
+                                                         textX={combo.playerIndex < combo.opponentIndex ? 10 : props.svgWidth - 220}
+                                                         startPercent={combo.startPercent}
+                                                         endPercent={combo.endPercent}
                 />);
                 comboPathsDefense.push(<ComboTrackerPath key={idx + 1000}
                                                          currentCombo={props.currentCombo}
@@ -179,8 +180,9 @@ const comboTracker = (props) => {
                                                          hitsTaken={comboHitsDefense}
                                                          didKill={combo.didKill}
                                                          allCombos={props.allCombos}
-                                                         textX={combo.playerIndex < combo.opponentIndex ? 10 : props.svgWidth - 200}
-                                                         totalDmg={(combo.endPercent - combo.startPercent).toPrecision(3)}
+                                                         textX={combo.playerIndex < combo.opponentIndex ? 10 : props.svgWidth - 220}
+                                                         startPercent={combo.startPercent}
+                                                         endPercent={combo.endPercent}
                 />);
 
 
