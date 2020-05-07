@@ -131,8 +131,8 @@ export default class motionTracker extends React.Component{
 
     nextCombo = () => {
         let newIndex = 0;
-        if(this.state.comboIndex >= this.props.stats["combos"].length){
-            newIndex = this.props.stats["combos"].length - 1;
+        if(this.state.comboIndex >= this.props.stats.combos.length - 1){
+            newIndex = this.props.stats.combos.length - 1;
         } else {
             newIndex = this.state.comboIndex + 1;
         }
@@ -186,6 +186,8 @@ export default class motionTracker extends React.Component{
 
 
     pickTracker = () => {
+        const svgWidth = this.svgProportions[this.props.stageId].xDim;
+        const svgHeight = this.svgProportions[this.props.stageId].yDim;
         switch (this.state.currentTracker) {
             case "combos":
                 return (
@@ -201,6 +203,8 @@ export default class motionTracker extends React.Component{
                         hitBubblesVisibleDefense={this.state.hitBubblesVisibleDefense}
                         p1Character={this.state.player1Character}
                         p2Character={this.state.player2Character}
+                        svgWidth={svgWidth}
+                        svgHeight={svgHeight}
                     />
                 );
 
@@ -214,6 +218,8 @@ export default class motionTracker extends React.Component{
                         zoomType="scale"
                         displayP1={this.state.displayP1}
                         displayP2={this.state.displayP2}
+                        svgWidth={svgWidth}
+                        svgHeight={svgHeight}
                     />
                 );
             default:
@@ -224,25 +230,27 @@ export default class motionTracker extends React.Component{
 
     render() {
         const tracker = this.pickTracker();
+        const svgWidth = this.svgProportions[this.props.stageId].xDim;
+        const svgHeight = this.svgProportions[this.props.stageId].yDim;
         return (
             <div className={styles.MotionTracker}>
                 <div className={styles.svgContainer}>
-                    <svg width={this.svgProportions[this.props.stageId].xDim}
-                         height={this.svgProportions[this.props.stageId].yDim}
+                    <svg width={svgWidth}
+                         height={svgHeight}
                          fontWeight={"bold"}
                     >
                         {tracker}
                         {this.state.displayP1 ? <text x={20} y={25}>Port {this.state.player1Port}: {this.state.player1Character}</text> : null}
-                        {this.state.displayP1 ? <text x={20} y={550}>Total damage: {this.props.stats.overall[0].totalDamage.toPrecision(4)}</text> : null}
-                        {this.state.displayP1 ? <text x={20} y={575}>Damage per opening: {this.props.stats.overall[0].damagePerOpening.ratio.toPrecision(3)}</text> : null}
-                        {this.state.displayP1 ? <text x={20} y={600}>Kill count: {this.props.stats.overall[0].killCount}</text> : null}
-                        {this.state.displayP1 ? <text x={20} y={625}>Openings per kill: {this.props.stats.overall[0].openingsPerKill.ratio.toPrecision(3)}</text> : null}
+                        {this.state.displayP1 ? <text x={20} y={svgHeight - 100}>Total damage: {this.props.stats.overall[0].totalDamage.toPrecision(4)}</text> : null}
+                        {this.state.displayP1 ? <text x={20} y={svgHeight - 75}>Damage per opening: {this.props.stats.overall[0].damagePerOpening.ratio.toPrecision(3)}</text> : null}
+                        {this.state.displayP1 ? <text x={20} y={svgHeight - 50}>Kill count: {this.props.stats.overall[0].killCount}</text> : null}
+                        {this.state.displayP1 ? <text x={20} y={svgHeight - 25}>Openings per kill: {this.props.stats.overall[0].openingsPerKill.ratio.toPrecision(3)}</text> : null}
 
-                        {this.state.displayP2 ? <text x={785} y={25}>Port {this.state.player2Port}: {this.state.player2Character}</text> : null}
-                        {this.state.displayP2 ? <text x={760} y={550}>Total damage: {this.props.stats.overall[1].totalDamage.toPrecision(4)}</text> : null}
-                        {this.state.displayP2 ? <text x={760} y={575}>Damage per opening: {this.props.stats.overall[1].damagePerOpening.ratio.toPrecision(3)}</text> : null}
-                        {this.state.displayP2 ? <text x={760} y={600}>Kill count: {this.props.stats.overall[1].killCount}</text> : null}
-                        {this.state.displayP2 ? <text x={760} y={625}>Openings per kill: {this.props.stats.overall[1].openingsPerKill.ratio.toPrecision(3)}</text> : null}
+                        {this.state.displayP2 ? <text x={svgWidth - 200} y={25}>Port {this.state.player2Port}: {this.state.player2Character}</text> : null}
+                        {this.state.displayP2 ? <text x={svgWidth - 220} y={svgHeight - 100}>Total damage: {this.props.stats.overall[1].totalDamage.toPrecision(4)}</text> : null}
+                        {this.state.displayP2 ? <text x={svgWidth - 220} y={svgHeight - 75}>Damage per opening: {this.props.stats.overall[1].damagePerOpening.ratio.toPrecision(3)}</text> : null}
+                        {this.state.displayP2 ? <text x={svgWidth - 220} y={svgHeight - 50}>Kill count: {this.props.stats.overall[1].killCount}</text> : null}
+                        {this.state.displayP2 ? <text x={svgWidth - 220} y={svgHeight - 25}>Openings per kill: {this.props.stats.overall[1].openingsPerKill.ratio.toPrecision(3)}</text> : null}
 
 
                     </svg>

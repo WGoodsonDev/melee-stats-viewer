@@ -9,7 +9,7 @@ import styles from './VizContainer.module.css';
 import MotionTracker from "../MotionTracker/MotionTracker";
 
 // DATA SOURCES
-import allData from '../../DataHandling/scripts/json/Game_20190118T212023.json';
+import allData from '../../DataHandling/scripts/json/Game_20181114T230445.json';
 import ControlBar from "../MotionTracker/ControlBar/ControlBar";
 import ControlButton from '../MotionTracker/ControlButtons/ControlButtonBase/ControlButton';
 
@@ -81,20 +81,6 @@ export default class VizContainer extends React.Component {
     render() {
         return (
             <div className={styles.VizContainer}>
-                {/*<ControlBar orientation={"vertical"}>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*    <div className={styles.ctrlButtonLeft}/>*/}
-                {/*</ControlBar>*/}
                 {this.state.frames.length &&
                 <MotionTracker height={this.height}
                                width={this.width}

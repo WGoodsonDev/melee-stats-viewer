@@ -96,12 +96,12 @@ const comboTracker = (props) => {
         .y(d => yScale(d.player2Y));
 
     const p1ComboColorScale = d3.scaleLinear()
-        .domain([0, 10])
-        .range(["blue", "steelblue"])
+        .domain([0, 20])
+        .range(["purple", "cyan"])
 
     const p2ComboColorScale = d3.scaleLinear()
-        .domain([0, 10])
-        .range(["orange", "red"])
+        .domain([0, 20])
+        .range(["yellow", "red"])
 
 
     const makeComboPaths = () => {
@@ -168,7 +168,7 @@ const comboTracker = (props) => {
                                                          comboHits={comboHitsOffense}
                                                          didKill={combo.didKill}
                                                          allCombos={props.allCombos}
-                                                         textX={combo.playerIndex < combo.opponentIndex ? 10 : 760}
+                                                         textX={combo.playerIndex < combo.opponentIndex ? 10 : props.svgWidth - 200}
                 />);
                 comboPathsDefense.push(<ComboTrackerPath key={idx + 1000}
                                                          currentCombo={props.currentCombo}
@@ -183,14 +183,14 @@ const comboTracker = (props) => {
 
 
 
-                comboBubblesOffense.push(comboHitsOffense.map((hit, idx) => {
+                comboBubblesOffense.push(comboHitsOffense.map((hit, index) => {
                     return (
-                        <ComboHit hit={hit} color={p1ComboColorScale(idx)} key={idx} hitNo={idx + 1} textX={hit.playerIdx < hit.opponentIdx ? 10 : 760}/>
+                        <ComboHit hit={hit} color={p1ComboColorScale(idx)} key={index} hitNo={index + 1} textX={hit.playerIdx < hit.opponentIdx ? 0 : props.svgWidth - 220}/>
                     )
                 }))
-                comboBubblesDefense.push(comboHitsDefense.map((hit, idx) => {
+                comboBubblesDefense.push(comboHitsDefense.map((hit, index) => {
                     return (
-                        <ComboHit hit={hit} color={p2ComboColorScale(idx)} key={idx + 1000} hitNo={idx + 1} textX={hit.playerIdx < hit.opponentIdx ? 10 : 760}/>
+                        <ComboHit hit={hit} color={p2ComboColorScale(idx)} key={index + 1000} hitNo={index + 1} textX={hit.playerIdx < hit.opponentIdx ? 0 : props.svgWidth - 220}/>
                     )
                 }))
             }

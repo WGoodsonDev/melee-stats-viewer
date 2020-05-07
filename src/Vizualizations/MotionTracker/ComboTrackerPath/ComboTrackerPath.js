@@ -41,10 +41,10 @@ export default class ComboTrackerPath extends React.Component{
     generateComboText = () => {
         let comboText = [];
         if(this.props.comboHits){
-            comboText.push(<text x={this.props.textX} y={66}>{this.props.didKill ? "Combo did kill" : "Combo did not kill"}</text>)
+            comboText.push(<text x={this.props.textX} y={96}>{this.props.didKill ? "Combo did kill" : "Combo did not kill"}</text>)
             this.props.comboHits.forEach((hit, idx) => {
                 comboText.push(
-                    <text x={this.props.textX} y={60 + (35 * (idx + 1))}>{idx + 1}: {hit.move}: {hit.damage}%</text>
+                    <text x={this.props.textX} y={100 + (35 * (idx + 1))}>{idx + 1}: {hit.move}: {hit.damage}%</text>
                 );
             })
         }
@@ -70,8 +70,7 @@ export default class ComboTrackerPath extends React.Component{
                 <foreignObject x={400} y={15} width={160} height={120}>
                     {this.state.tooltipOpen ?
                         <div className={"tooltip"}>
-                            <p>Combo length: {this.props.comboLength}</p>
-                            <p>{this.props.didKill?` Combo did kill`:`Combo did not kill`}</p>
+                            <p></p>
                         </div> : null
                     }
 
