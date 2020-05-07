@@ -7,3 +7,15 @@
     position: relative;
     z-index: 1000;
 }
+
+.svgContainer button {
+    background-color: #85a392;
+    color: #ffecc7;
+    border: none;
+    height: 20px;
+}
+
+.svgContainer button:hover {
+    cursor: pointer;
+    background-color: #a9c6b5;
+}

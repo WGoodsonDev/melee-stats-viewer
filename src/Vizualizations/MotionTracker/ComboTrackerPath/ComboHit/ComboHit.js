@@ -32,7 +32,7 @@ export default class ComboHit extends React.Component {
 
     radiusScale = d3.scaleLinear()
         .domain([0, 20])
-        .range([10,26])
+        .range([6,20])
 
     componentDidMount() {
         this.setState({
@@ -56,20 +56,20 @@ export default class ComboHit extends React.Component {
                 >
                 </circle>
                 <Tooltip triggerRef={this.circleRef}>
-                    <rect x={6} y={-5}  height={100} rx={5} ry={5} stroke={'black'} fill={this.props.color}/>
+                    <rect x={10} y={-5}  height={100} rx={5} ry={5} stroke={'black'} fill={this.props.color}/>
                     <text x={10} y={20} fontSize={24} stroke={'black'} fill={'white'}>{this.props.hit.character}</text>
-                    <text x={10} y={40} fontSize={24} stroke={'black'} fill={'white'}>{this.props.offense ? this.props.hit.move : null}</text>
-                    <text x={10} y={60} fontSize={24} stroke={'black'} fill={'white'}>{this.props.hit.damage}%</text>
+                    <text x={10} y={42} fontSize={24} stroke={'black'} fill={'white'}>{this.props.hit.move}</text>
+                    <text x={10} y={64} fontSize={24} stroke={'black'} fill={'white'}>{this.props.hit.damage}%</text>
                 </Tooltip>
 
-                <foreignObject x={this.props.textX} y={420} width={160} height={120}>
-                    {this.state.tooltipOpen ?
-                        <div className={"tooltip"}>
-                            <p>{this.props.hit.move}</p>
-                        </div> : null
-                    }
+                {/*<foreignObject x={this.props.textX} y={420} width={160} height={120}>*/}
+                {/*    {this.state.tooltipOpen ?*/}
+                {/*        <div className={"tooltip"}>*/}
+                {/*            <p>{this.props.hit.move}</p>*/}
+                {/*        </div> : null*/}
+                {/*    }*/}
 
-                </foreignObject>
+                {/*</foreignObject>*/}
             </g>
 
 

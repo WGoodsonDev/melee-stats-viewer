@@ -19,6 +19,8 @@ const Sidebar = (props) => {
         <div className={props.isVisible ? styles.Sidebar : styles.SidebarHidden}>
             <CloseButton closeSidebar={props.closeSidebar}>
             </CloseButton>
+
+            <Icon/>
             <NavItemGroup></NavItemGroup>
 
 

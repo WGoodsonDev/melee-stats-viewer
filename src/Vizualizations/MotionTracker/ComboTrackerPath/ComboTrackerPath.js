@@ -63,7 +63,7 @@ export default class ComboTrackerPath extends React.Component{
         const comboText = this.generateComboText();
 
         return (
-            <g width={"inherit"}>
+            <g>
                 <path onMouseOver={this.highlight}
                       onMouseOut={this.unhighlight}
                       d={this.props.d}
