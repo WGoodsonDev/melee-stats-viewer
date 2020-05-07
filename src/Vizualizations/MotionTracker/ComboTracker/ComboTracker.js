@@ -13,7 +13,6 @@ import ComboHit from "../ComboTrackerPath/ComboHit/ComboHit";
 
 const comboTracker = (props) => {
     const minComboLength = 3;
-    const currentCombo = 4;
 
     const stageDimensions = {
         0: {

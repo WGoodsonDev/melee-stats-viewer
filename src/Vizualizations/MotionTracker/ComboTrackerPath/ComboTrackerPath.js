@@ -39,13 +39,16 @@ export default class ComboTrackerPath extends React.Component{
 
 
     generateComboText = () => {
+        let comboText = [];
         if(this.props.comboHits){
-            return this.props.comboHits.map((hit, idx) => {
-                return(
+            comboText.push(<text x={this.props.textX} y={66}>{this.props.didKill ? "Combo did kill" : "Combo did not kill"}</text>)
+            this.props.comboHits.forEach((hit, idx) => {
+                comboText.push(
                     <text x={this.props.textX} y={60 + (35 * (idx + 1))}>{idx + 1}: {hit.move}: {hit.damage}%</text>
                 );
             })
         }
+        return comboText;
     }
 
     render() {

@@ -55,7 +55,7 @@ export default class motionTracker extends React.Component{
             player2Port: this.props.settings.players[1].port,
             displayP1: true,
             displayP2: true,
-            allCombos: true,
+            allCombos: false,
             hitBubblesVisibleOffense: true,
             hitBubblesVisibleDefense: true
         }
@@ -251,7 +251,7 @@ export default class motionTracker extends React.Component{
                 <ControlBar orientation={"horizontal"}>
                     <ControlButton click={this.prevCombo}>Previous Combo</ControlButton>
                     <ControlButton click={this.nextCombo}>Next Combo</ControlButton>
-                    <ControlButton click={this.allCombos}>Toggle All Combos / One Combo</ControlButton>
+                    <ControlButton click={this.allCombos}>Toggle Single Combo / All Combos</ControlButton>
                     <ControlButton click={this.hitBubblesToggleP1}>Toggle Hit Bubbles P1</ControlButton>
                     <ControlButton click={this.hitBubblesToggleP2}>Toggle Hit Bubbles P2</ControlButton>
                     <ControlButton click={this.p1PathToggle}>Toggle Player 1</ControlButton>
