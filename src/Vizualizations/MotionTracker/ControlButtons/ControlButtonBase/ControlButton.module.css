@@ -8,6 +8,7 @@
     color: #ffecc7;
     text-align: center;
     user-select: none;
+    padding: 4px;
 }
 
 .ControlButton:hover {

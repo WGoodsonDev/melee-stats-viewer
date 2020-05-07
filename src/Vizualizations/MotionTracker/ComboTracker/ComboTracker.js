@@ -8,10 +8,48 @@ import ComboTrackerPath from "../ComboTrackerPath/ComboTrackerPath";
 import * as d3 from "d3";
 
 import attackTable from '../../../DataHandling/AttackTable';
+import battlefield from  '../../../Assets/stages/png/battlefield_downscaled_648.png';
+
 import ComboHit from "../ComboTrackerPath/ComboHit/ComboHit";
 
 
 const comboTracker = (props) => {
+
+    const characterMap = {
+        0 : "Cpt. Falcon",
+        1 : "Donkey Kong",
+        2 : "Fox",
+        3  : "Mr. Game & Watch",
+        4 : "Kirby",
+        5 : "Bowser",
+        6 : "Link",
+        7  : "Luigi",
+        8 : "Mario",
+        9  : "Marth",
+        10 : "Mewtwo",
+        11: "Ness",
+        12: "Peach",
+        13 : "Pikachu",
+        14 : "Ice Climbers (Nana)",
+        15 : "Jigglypuff",
+        16 : "Samus",
+        17 : "Yoshi",
+        18 : "Sheik",
+        19: "Sheik",
+        20 : "Falco",
+        21 : "Young Link",
+        22 : "Dr. Mario",
+        23 : "Roy",
+        24 : "Pichu",
+        25 : "Ganondorf",
+        26 : "Master Hand",
+        27 : "Male Wireframe",
+        28 : "Female Wireframe",
+        29 : "Giga Bowser",
+        30 : "Crazy Hand",
+        31 : "Sandbag",
+        32 : "Ice Climbers (Popo)",
+    }
 
     const stageDimensions = {
         0: {
@@ -140,7 +178,7 @@ const comboTracker = (props) => {
                         "y": yScale(positionData[move.frame].player1Y),
                         "hitCount": move.hitCount,
                         "damage": move.damage.toPrecision(2),
-                        "character": props.frameData[0]["player1"].Character,
+                        "character": characterMap[props.frameData[0]["player1"].Character],
                         "playerIdx": combo.playerIndex,
                         "opponentIdx": combo.opponentIndex
                     };
@@ -153,7 +191,7 @@ const comboTracker = (props) => {
                         "y": yScale(positionData[move.frame].player2Y),
                         "hitCount": move.hitCount,
                         "damage": move.damage.toPrecision(2),
-                        "character": props.frameData[0]["player2"].Character,
+                        "character": characterMap[props.frameData[0]["player2"].Character],
                         "playerIdx": combo.opponentIndex,
                         "opponentIdx": combo.playerIndex
                     };
@@ -189,12 +227,12 @@ const comboTracker = (props) => {
 
                 comboBubblesOffense.push(comboHitsOffense.map((hit, index) => {
                     return (
-                        <ComboHit hit={hit} color={p1ComboColorScale(combo.endPercent - combo.startPercent)} key={index} hitNo={index + 1} textX={hit.playerIdx >= hit.opponentIdx ? 0 : props.svgWidth - 220}/>
+                        <ComboHit hit={hit} color={p1ComboColorScale(combo.endPercent - combo.startPercent)} key={index} hitNo={index + 1} textX={hit.playerIdx >= hit.opponentIdx ? 0 : props.svgWidth - 220} offense/>
                     )
                 }))
                 comboBubblesDefense.push(comboHitsDefense.map((hit, index) => {
                     return (
-                        <ComboHit hit={hit} color={p2ComboColorScale(combo.endPercent - combo.startPercent)} key={index + 1000} hitNo={index + 1} textX={hit.playerIdx >= hit.opponentIdx ? 0 : props.svgWidth - 220}/>
+                        <ComboHit hit={hit} color={p2ComboColorScale(combo.endPercent - combo.startPercent)} key={index + 1000} hitNo={index + 1} textX={hit.playerIdx < hit.opponentIdx ? 0 : props.svgWidth - 220}/>
                     )
                 }))
             }

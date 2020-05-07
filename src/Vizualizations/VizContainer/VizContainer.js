@@ -9,7 +9,7 @@ import styles from './VizContainer.module.css';
 import MotionTracker from "../MotionTracker/MotionTracker";
 
 
-import allData from '../../DataHandling/scripts/json/Game_20181210T225909.json';
+import allData from '../../DataHandling/scripts/json/Game_20190107T000750.json';
 
 
 
@@ -20,11 +20,12 @@ export default class VizContainer extends React.Component {
         settings: {},
         frames: {},
         stats: {},
-        stageId: 8
+        stageId: 8,
+        height: 630,
+        width: 1120,
     }
 
-    height = 630;
-    width = 1120;
+
 
 
     mapStageId = {
@@ -81,8 +82,8 @@ export default class VizContainer extends React.Component {
         return (
             <div className={styles.VizContainer}>
                 {this.state.frames.length &&
-                <MotionTracker height={this.height}
-                               width={this.width}
+                <MotionTracker height={this.state.height}
+                               width={this.state.width}
                                stageId={this.mapStageId[this.state.stageId]}
                                frameData={this.state.frames}
                                stats={this.state.stats}

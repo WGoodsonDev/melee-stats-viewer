@@ -43,21 +43,6 @@ const stageSelectString = {
 }
 
 
-const pngDimensions = {
-    0: {
-        x: 3593,
-        y: 2690
-    }
-}
-
-const backgroundTransform = {
-    0: `(0, -125px)`,
-    1: "",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-}
 
 
 const stageBkgndComponent = (props) => {
