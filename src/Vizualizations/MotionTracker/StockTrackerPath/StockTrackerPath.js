@@ -73,7 +73,7 @@ export default class StockTrackerPath extends React.Component{
                 <foreignObject x={400} y={15} width={160} height={120}>
                     {this.state.tooltipOpen ?
                         <div className={"tooltip"}>
-                            <p></p>
+                            <p>{this.props.stockData.endPercent.toPrecision(3)}</p>
                             <p></p>
                         </div> : null
                     }

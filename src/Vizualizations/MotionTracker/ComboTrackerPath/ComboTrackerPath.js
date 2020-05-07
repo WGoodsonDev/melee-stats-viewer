@@ -2,7 +2,6 @@
     Created by Warren Goodson
 */
 import React from 'react';
-import ComboHit from "./ComboHit/ComboHit";
 
 export default class ComboTrackerPath extends React.Component{
     constructor(props) {
@@ -43,20 +42,14 @@ export default class ComboTrackerPath extends React.Component{
         if(this.props.comboHits){
             return this.props.comboHits.map((hit, idx) => {
                 return(
-                    <text x={640} y={40 * (idx + 1)}>{idx + 1}: {hit.move}: {hit.damage}%</text>
+                    <text x={this.props.textX} y={60 + (35 * (idx + 1))}>{idx + 1}: {hit.move}: {hit.damage}%</text>
                 );
             })
-        } else if (this.props.hitsTaken){
-            return this.props.hitsTaken.map((hit, idx) => {
-                return null;
-                    // <text x={640} y={40 * (idx + 1)}>{idx + 1}: {hit.move}: {hit.damage}%</text>
-
-            })
         }
-
     }
 
     render() {
+        const comboText = this.generateComboText();
 
         return (
             <g width={"inherit"}>
@@ -80,6 +73,7 @@ export default class ComboTrackerPath extends React.Component{
                     }
 
                 </foreignObject>
+                {this.props.allCombos ? null : comboText}
 
             </g>
         );
